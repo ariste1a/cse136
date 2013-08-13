@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+<h2>Edit</h2>
+
+First : <input type="text" name="first" id="first" /><br />
+<br />
+Last : <input type="text" name="last" id="last" /><br />
+<br />
+<input type="button" onclick="adminUpdateHandler()" value="Update" style="margin-left:80px"/>
+<br /><br />
+<div id="divMessage"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // this require[] will load the /Scripts/136Libraries/ViewModels/AdminViewModel.js file
+        // and return the object inside it and assign to adminViewModel variable.
+        require(['ViewModels/AdminViewModel'], function (adminViewModel) {
+            var viewModel = new adminViewModel();
+            viewModel.Load();
+        });
+    });
+
+    function adminUpdateHandler() {
+        require(['ViewModels/AdminViewModel'], function (adminViewModel) {
+            var viewModel = new adminViewModel();
+            viewModel.Update();
+        });
+    }
+
+</script>

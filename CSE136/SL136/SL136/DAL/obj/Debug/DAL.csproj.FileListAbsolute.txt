@@ -5,3 +5,10 @@ C:\Users\iteriani\Downloads\SL136\SL136\DAL\bin\Debug\POCO.pdb
 C:\Users\iteriani\Downloads\SL136\SL136\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 C:\Users\iteriani\Downloads\SL136\SL136\DAL\obj\Debug\DAL.dll
 C:\Users\iteriani\Downloads\SL136\SL136\DAL\obj\Debug\DAL.pdb
+C:\Users\Rigby\Documents\GitHub\cse136\CSE136\SL136\SL136\DAL\bin\Debug\DAL.dll
+C:\Users\Rigby\Documents\GitHub\cse136\CSE136\SL136\SL136\DAL\bin\Debug\DAL.pdb
+C:\Users\Rigby\Documents\GitHub\cse136\CSE136\SL136\SL136\DAL\bin\Debug\POCO.dll
+C:\Users\Rigby\Documents\GitHub\cse136\CSE136\SL136\SL136\DAL\bin\Debug\POCO.pdb
+C:\Users\Rigby\Documents\GitHub\cse136\CSE136\SL136\SL136\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\Rigby\Documents\GitHub\cse136\CSE136\SL136\SL136\DAL\obj\Debug\DAL.dll
+C:\Users\Rigby\Documents\GitHub\cse136\CSE136\SL136\SL136\DAL\obj\Debug\DAL.pdb

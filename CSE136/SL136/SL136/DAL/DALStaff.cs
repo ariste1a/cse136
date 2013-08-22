@@ -14,25 +14,25 @@ namespace DAL
     {
         static string connection_string = ConfigurationManager.AppSettings["dsn"];
 
-        public static void InsertStaff(Staff staff, ref List<string> errors)
+        public static string InsertStaff(Staff staff, ref List<string> errors)
         {
+            string idVal = "-1";
             SqlConnection conn = new SqlConnection(connection_string);
             try
             {
                 string strSQL = "spInsertStaffInfo";
 
                 SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
-                mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
-                mySA.SelectCommand.Parameters.Add(new SqlParameter("@staff_id", SqlDbType.VarChar, 100));
+                mySA.SelectCommand.CommandType = CommandType.StoredProcedure;                
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 100));
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 50));
-
-                mySA.SelectCommand.Parameters["@staff_id"].Value = staff.id;
+                
                 mySA.SelectCommand.Parameters["@email"].Value = staff.email;
                 mySA.SelectCommand.Parameters["@password"].Value = staff.password;
 
                 DataSet myDS = new DataSet();
                 mySA.Fill(myDS);
+                idVal = myDS.Tables[0].Rows[0]["identity"].ToString();
             }
             catch (Exception e)
             {
@@ -43,8 +43,8 @@ namespace DAL
                 conn.Dispose();
                 conn = null;
             }
-        }
-
+            return idVal;
+        }        
         public static void UpdateStaff(Staff staff, ref List<string> errors)
         {
             SqlConnection conn = new SqlConnection(connection_string);
@@ -56,8 +56,7 @@ namespace DAL
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@staff_id", SqlDbType.VarChar, 100));
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 100));
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 100));
-
-                mySA.SelectCommand.Parameters["@staff_id"].Value = staff.id;
+                
                 mySA.SelectCommand.Parameters["@email"].Value = staff.email;
                 mySA.SelectCommand.Parameters["@password"].Value = staff.password;
 
@@ -116,7 +115,7 @@ namespace DAL
 
                 SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
                 mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
-                mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 100));
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50));
                 mySA.SelectCommand.Parameters["@email"].Value = email;
 
                 DataSet myDS = new DataSet();

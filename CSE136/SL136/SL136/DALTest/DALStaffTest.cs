@@ -72,11 +72,11 @@ namespace DALTest
             staff.password = "test";
 
             List<string> errors = new List<string>();
-            DALStaff.InsertStaff(staff, ref errors);
+            staff.id = DALStaff.InsertStaff(staff, ref errors);
 
             //Assert.AreEqual(0, errors.Count);
 
-            Staff verifyStaff = DALStaff.GetStaffDetail(staff.id, ref errors);
+            Staff verifyStaff = DALStaff.GetStaffDetail(staff.email, ref errors);
 
             //Assert.AreEqual(0, errors.Count);
             Assert.AreEqual(staff.id, verifyStaff.id);

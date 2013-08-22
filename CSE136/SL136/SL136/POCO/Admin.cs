@@ -9,7 +9,7 @@ namespace POCO
     public class Admin
     {
     [DataMember]
-    public string id { get; set; }
+    public int id { get; set; }
 
     [DataMember]
     public string email { get; set; }

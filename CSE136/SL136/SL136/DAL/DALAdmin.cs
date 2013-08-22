@@ -24,16 +24,16 @@ namespace DAL
             SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
             mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 20));
-            mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 9));
-            //mySA.SelectCommand.Parameters.Add("@@IDENTITY", SqlDbType.Int);
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 9));            
 
             mySA.SelectCommand.Parameters["@email"].Value = admin.email;
             mySA.SelectCommand.Parameters["@password"].Value = admin.password;
             DataSet myDS = new DataSet();
             mySA.Fill(myDS);
-            idVal =  Convert.ToInt32(myDS.Tables[1].Rows[1]["identity"].ToString());            
+            int count = myDS.Tables[0].Rows.Count;
+            idVal =  Convert.ToInt32(myDS.Tables[0].Rows[0]["identity"].ToString());            
             //how do we get the ID returned value?!
-             //should be returned by the procedure, just like a select * does. 
+            //should be returned by the procedure, just like a select * does. 
           }
           catch (Exception e)
           {
@@ -68,7 +68,7 @@ namespace DAL
                     return null;
 
                 admin = new Admin();
-                admin.id = myDS.Tables[0].Rows[0]["admin_id"].ToString();
+                admin.id = Convert.ToInt32(myDS.Tables[0].Rows[0]["admin_id"]) ;
                 admin.email = myDS.Tables[0].Rows[0]["email"].ToString();
                 admin.password = myDS.Tables[0].Rows[0]["password"].ToString();
             }
@@ -83,6 +83,35 @@ namespace DAL
             }
 
             return admin;
+        }
+
+        public static void DeleteAdmin(string id, ref List<string> errors)
+        {
+            SqlConnection conn = new SqlConnection(connection_string);
+
+            try
+            {
+                string strSQL = "spDeleteAdmin";
+
+                SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+                mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@admin_id", SqlDbType.VarChar, 20));
+
+                mySA.SelectCommand.Parameters["@admin_id"].Value = id;
+
+                DataSet myDS = new DataSet();
+                mySA.Fill(myDS);
+
+            }
+            catch (Exception e)
+            {
+                errors.Add("Error: " + e.ToString());
+            }
+            finally
+            {
+                conn.Dispose();
+                conn = null;
+            }
         }
   }    
 }

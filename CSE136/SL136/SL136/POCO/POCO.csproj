@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.cs" />
+    <Compile Include="Staff.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CourseLevel.cs" />
     <Compile Include="Logon.cs" />

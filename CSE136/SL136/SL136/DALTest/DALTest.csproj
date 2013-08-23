@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DALCourseTest.cs" />
     <Compile Include="DALStaffTest.cs" />
     <Compile Include="DALAdminTest.cs" />
     <Compile Include="DALStudentTest.cs" />

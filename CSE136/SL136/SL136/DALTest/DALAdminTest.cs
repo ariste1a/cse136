@@ -73,7 +73,7 @@ namespace DALTest
 
       List<string> errors = new List<string>();
 
-      int id = DALAdmin.InsertAdmin(admin, ref errors);
+      string id = DALAdmin.InsertAdmin(admin, ref errors);
       admin.id = id; 
       //Assert.AreEqual(0, errors.Count);
       //System.Diagnostics.Debug.Write("asdf"); 
@@ -86,7 +86,9 @@ namespace DALTest
 
       Admin admin2 = new Admin();       
       admin2.email = "last2";
-      admin2.password = "test"; 
+      admin2.password = "test";
+
+      DALAdmin.DeleteAdmin(admin.id, ref errors);
       /*
       DALAdmin.Updateadmin(admin2, ref errors);
 

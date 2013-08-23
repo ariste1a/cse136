@@ -13,9 +13,9 @@ namespace DAL
     {
         static string connection_string = ConfigurationManager.AppSettings["dsn"];
         //why do we need a static here?
-        public static int InsertAdmin(Admin admin, ref List<string> errors)
+        public static string InsertAdmin(Admin admin, ref List<string> errors)
         {
-          int idVal = -1;
+          string idVal = "-1";
           SqlConnection conn = new SqlConnection(connection_string);
           try
           {
@@ -31,7 +31,7 @@ namespace DAL
             DataSet myDS = new DataSet();
             mySA.Fill(myDS);
             int count = myDS.Tables[0].Rows.Count;
-            idVal =  Convert.ToInt32(myDS.Tables[0].Rows[0]["identity"].ToString());            
+            idVal = myDS.Tables[0].Rows[0]["identity"].ToString();            
             //how do we get the ID returned value?!
             //should be returned by the procedure, just like a select * does. 
           }
@@ -68,7 +68,7 @@ namespace DAL
                     return null;
 
                 admin = new Admin();
-                admin.id = Convert.ToInt32(myDS.Tables[0].Rows[0]["admin_id"]) ;
+                admin.id = myDS.Tables[0].Rows[0]["admin_id"].ToString();
                 admin.email = myDS.Tables[0].Rows[0]["email"].ToString();
                 admin.password = myDS.Tables[0].Rows[0]["password"].ToString();
             }
@@ -101,7 +101,6 @@ namespace DAL
 
                 DataSet myDS = new DataSet();
                 mySA.Fill(myDS);
-
             }
             catch (Exception e)
             {
@@ -113,5 +112,6 @@ namespace DAL
                 conn = null;
             }
         }
+        //might want to return success code or not
   }    
 }

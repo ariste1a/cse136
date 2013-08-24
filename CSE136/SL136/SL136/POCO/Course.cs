@@ -20,5 +20,6 @@ namespace POCO
 
     [DataMember]
     public string description { get; set; }
+
   }
 }

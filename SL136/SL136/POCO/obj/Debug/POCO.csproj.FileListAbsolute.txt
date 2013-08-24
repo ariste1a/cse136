@@ -1,8 +1,0 @@
-C:\Users\iteriani\Downloads\SL136\SL136\POCO\bin\Debug\POCO.dll
-C:\Users\iteriani\Downloads\SL136\SL136\POCO\bin\Debug\POCO.pdb
-C:\Users\iteriani\Downloads\SL136\SL136\POCO\obj\Debug\POCO.dll
-C:\Users\iteriani\Downloads\SL136\SL136\POCO\obj\Debug\POCO.pdb
-C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\bin\Debug\POCO.dll
-C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\bin\Debug\POCO.pdb
-C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\obj\Debug\POCO.dll
-C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\obj\Debug\POCO.pdb

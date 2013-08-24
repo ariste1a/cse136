@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="DALAuth.cs" />
     <Compile Include="DALCourse.cs" />
+    <Compile Include="DALDiscussion.cs" />
     <Compile Include="DALSchedule.cs" />
     <Compile Include="DALStudent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +52,9 @@
       <Project>{a04cc3fc-b508-435d-aa7d-f25e5f172aca}</Project>
       <Name>POCO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

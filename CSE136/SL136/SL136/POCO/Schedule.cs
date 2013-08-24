@@ -24,5 +24,23 @@ namespace POCO
     [DataMember]
     public Course course { get; set; }
 
+    [DataMember]
+    public string enrollments { get; set; }
+
+    [DataMember]
+    public string quota { get; set; }
+
+    [DataMember]
+    public string time { get; set; }
+
+    [DataMember]
+    public string instructor { get; set; }
+
+    [DataMember]
+    public string day { get; set; }
+
+    [DataMember]
+    public string type { get; set; }
+
   }
 }

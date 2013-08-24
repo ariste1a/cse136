@@ -1,1 +1,0 @@
-<add key="dsn" value="Data Source=localhost;Initial Catalog=cse136;User Id=test1;Password=pass;"/>

@@ -36,7 +36,19 @@ namespace web136.SLSchedule {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string yearField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string quotaField;
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string timeField;
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string dayField;
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string typeField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -72,6 +84,7 @@ namespace web136.SLSchedule {
                 }
             }
         }
+
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string quarter {
@@ -82,6 +95,22 @@ namespace web136.SLSchedule {
                 if ((object.ReferenceEquals(this.quarterField, value) != true)) {
                     this.quarterField = value;
                     this.RaisePropertyChanged("quarter");
+                }
+            }
+        }
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string type
+        {
+            get
+            {
+                return this.typeField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.typeField, value) != true))
+                {
+                    this.typeField = value;
+                    this.RaisePropertyChanged("type");
                 }
             }
         }
@@ -108,6 +137,57 @@ namespace web136.SLSchedule {
                 if ((object.ReferenceEquals(this.yearField, value) != true)) {
                     this.yearField = value;
                     this.RaisePropertyChanged("year");
+                }
+            }
+        }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string time
+        {
+            get
+            {
+                return this.timeField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.timeField, value) != true))
+                {
+                    this.timeField = value;
+                    this.RaisePropertyChanged("time");
+                }
+            }
+        }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string day
+        {
+            get
+            {
+                return this.dayField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.dayField, value) != true))
+                {
+                    this.dayField = value;
+                    this.RaisePropertyChanged("day");
+                }
+            }
+        }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string quota
+        {
+            get
+            {
+                return this.quotaField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.quotaField, value) != true))
+                {
+                    this.quotaField = value;
+                    this.RaisePropertyChanged("quota");
                 }
             }
         }

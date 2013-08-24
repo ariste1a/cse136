@@ -157,7 +157,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\chatHub.cs" />
+    <Compile Include="Hubs\classHub.cs" />
     <Compile Include="Models\Admin\PLAdmin.cs" />
     <Compile Include="Models\Breadcrumb.cs" />
     <Compile Include="Models\Course\CourseClientService.cs" />

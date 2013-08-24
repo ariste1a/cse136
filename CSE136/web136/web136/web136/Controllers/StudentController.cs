@@ -15,11 +15,11 @@ namespace web136.Controllers
       return list.Count.ToString();
     }
 
-    public JsonResult GetSampleStudent(int idx)
+    public JsonResult GetSampleStudent()
     {
       List<PLStudent> list = StudentClientService.GetStudentList();
 
-      return this.Json(list[idx], JsonRequestBehavior.AllowGet);
+      return this.Json(list[0], JsonRequestBehavior.AllowGet);
     }
 
 

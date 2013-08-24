@@ -65,7 +65,7 @@ namespace web136.Controllers
 
       if (quarterFilter == null)
         quarterFilter = "";
-
+    
 
       List<PLSchedule> scheduleList = ScheduleClientService.GetScheduleList(yearFilter, quarterFilter);
         JavaScriptSerializer jsonSerialiser = new JavaScriptSerializer();

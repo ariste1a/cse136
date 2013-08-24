@@ -32,5 +32,21 @@ namespace web136.Models.Schedule
     [Required]
     [DisplayName("Description")]
     public string course_description { get; set; }
+
+    [Required]
+    [DisplayName("Quota")]
+    public string quota { get; set; }
+
+    [Required]
+    [DisplayName("Schedule Day")]
+    public string day { get; set; }
+
+    [Required]
+    [DisplayName("Schedule Time")]
+    public string time { get; set; }
+
+    [Required]
+    [DisplayName("Type")]
+    public string type { get; set; }
   }
 }

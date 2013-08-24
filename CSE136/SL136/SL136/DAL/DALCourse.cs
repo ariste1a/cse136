@@ -7,6 +7,7 @@ using POCO;  // must add this...
 using System.Configuration; // must add this... make sure to add "System.Configuration" first
 using System.Data.SqlClient; // must add this...
 using System.Data; // must add this...
+using System.Diagnostics;
 
 namespace DAL
 {
@@ -44,6 +45,7 @@ namespace DAL
       }
       catch (Exception e)
       {
+          Debug.WriteLine(e.ToString());
       }
       finally
       {

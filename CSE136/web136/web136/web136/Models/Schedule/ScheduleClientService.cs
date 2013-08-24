@@ -39,7 +39,11 @@ namespace web136.Models.Schedule
       mySchedule.session = s.session;
       mySchedule.course_title = s.course.title;
       mySchedule.course_description = s.course.description;
-
+      mySchedule.quota = s.quota;
+      mySchedule.day = s.day;
+      mySchedule.time = s.time;
+      mySchedule.type = s.type;
+       
       return mySchedule;
     }
   }

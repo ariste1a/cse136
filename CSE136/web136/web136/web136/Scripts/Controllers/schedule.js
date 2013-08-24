@@ -6,7 +6,7 @@ angular.module('app.schedule', []).
   controller('scheduleCTRL', ['$scope', 'Courses', '$q', function ($scope, Courses, $q) {
       $scope.loadedLists = $q.defer();
       $scope.list = [];
-      $scope.chat = $.connection.chatHub;
+      $scope.chat = $.connection.classHub;
       $scope.chatMessages = [];
       
       $scope.chat.client.getMessage = function (msg) {
@@ -95,6 +95,7 @@ angular.module('app.schedule', []).
               } else {
                   //console.log(element.title + " IS DIFF FROM " + obj.title);
               }
+              
           });
 
           angular.forEach($scope.eventSources[0], function (element, index) {   // this is so bad...
@@ -105,14 +106,18 @@ angular.module('app.schedule', []).
               }
           });
           $scope.list.push(obj);
+          $scope.chat.server.removeClass($scope.user, obj.classid);
           console.log($scope.eventSources[0]);
-          $scope.chat.server.postMessage(obj.title + " has been removed by " + $scope.user);
+      //    $scope.chat.server.postMessage(obj.title + " has been removed by " + $scope.user);
       }
       $scope.$watch("selectedOptions.length", function (newVal, oldVal) {
           if (newVal > oldVal) {
               angular.forEach($scope.selectedOptions, function (element) {
                   if ($scope.eventSources[0].indexOf(element) < 0) {
-                      $scope.chat.server.postMessage(element.title + " has been added by " + $scope.user);
+                      console.log(element);
+                      // $scope.chat.server.postMessage(element.title + " has been added by " + $scope.user);
+
+                      $scope.chat.server.addClass($scope.user, element.classid);
                       $scope.eventSources[0].push(element);
                       console.log(element);
                       var element2 = new Object();

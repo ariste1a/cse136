@@ -12,7 +12,58 @@ namespace DAL
   public static class DALStudent
   {
     static string connection_string = ConfigurationManager.AppSettings["dsn"];
+    public static List<Schedule> GetDiscussions(int class_id, ref List<string> errors)
+    {
+        SqlConnection conn = new SqlConnection(connection_string);
+        List<Schedule> scheduleList = new List<Schedule>();
+        try
+        {
+            string strSQL = "spGetDiscussions";
 
+            SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@class_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters["@class_id"].Value = class_id;
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+            DataSet myDS = new DataSet();
+            mySA.Fill(myDS);
+
+            if (myDS.Tables[0].Rows.Count == 0)
+                return null;
+
+            List<Schedule> schedules = new List<Schedule>();
+            for (int i = 0; i < myDS.Tables[0].Rows.Count; i++)
+            {
+                Schedule schedule = new Schedule();
+                schedule.id = Convert.ToInt32(myDS.Tables[0].Rows[i]["schedule_id"].ToString());
+                schedule.year = myDS.Tables[0].Rows[i]["year"].ToString();
+                schedule.quarter = myDS.Tables[0].Rows[i]["quarter"].ToString();
+                schedule.session = myDS.Tables[0].Rows[i]["session"].ToString();
+                schedule.quota = myDS.Tables[0].Rows[i]["quota"].ToString();
+                schedule.time = myDS.Tables[0].Rows[i]["schedule_time"].ToString();
+                schedule.day = myDS.Tables[0].Rows[i]["schedule_day"].ToString();
+                schedule.type = myDS.Tables[0].Rows[i]["type"].ToString();
+                schedule.enrollments = myDS.Tables[0].Rows[i]["enrollments"].ToString();
+                schedule.course =
+                  new Course
+                  {
+                      id = myDS.Tables[0].Rows[i]["course_id"].ToString(),
+                      title = myDS.Tables[0].Rows[i]["course_title"].ToString(),
+                      description = myDS.Tables[0].Rows[i]["course_description"].ToString(),
+                  };
+                schedules.Add(schedule);
+
+            }
+            return schedules;
+        }
+        catch (Exception e)
+        {
+            errors.Add(e.ToString());
+            return null;
+
+        }
+    }
     public static void InsertStudent(Student student, ref List<string> errors)
     {
       SqlConnection conn = new SqlConnection(connection_string);
@@ -272,7 +323,7 @@ namespace DAL
     {
       SqlConnection conn = new SqlConnection(connection_string);
 
-      string strSQL = "spDeleteStudentSchedule";
+      string strSQL = "spDeleteEnrollmentSchedule";
 
       try
       {

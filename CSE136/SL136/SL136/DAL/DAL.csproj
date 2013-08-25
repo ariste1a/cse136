@@ -40,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALAdmin.cs" />
     <Compile Include="DALAuth.cs" />
     <Compile Include="DALCourse.cs" />
     <Compile Include="DALDiscussion.cs" />
     <Compile Include="DALSchedule.cs" />
+    <Compile Include="DALStaff.cs" />
     <Compile Include="DALStudent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

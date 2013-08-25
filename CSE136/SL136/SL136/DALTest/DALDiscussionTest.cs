@@ -50,9 +50,9 @@ namespace DALTest
         {
             List<String> errors = new List<String>();
             string classid =DAL.DALDiscussion.createDiscussion(100, "A01", 1,1,1,50, ref errors);
-           // Assert.IsTrue(classid!="0");
-            //TestContext.WriteLine(classid);
-          //  TestContext.WriteLine(errors[0].ToString());
+            // Assert.IsTrue(classid!="0");
+            // TestContext.WriteLine(classid);
+            // TestContext.WriteLine(errors[0].ToString());
             Assert.IsTrue(errors.Count==0);
             List<Schedule> discussions = DAL.DALDiscussion.GetDiscussions(100, ref errors);
             Boolean check = false;

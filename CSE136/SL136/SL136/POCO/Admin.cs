@@ -5,20 +5,17 @@ using System.Text;
 using System.Runtime.Serialization; // this is required
 
 namespace POCO
-{
-  [DataContract]
-  public class Course
-  {
+{   [DataContract]
+    public class Admin
+    {
     [DataMember]
     public string id { get; set; }
 
     [DataMember]
-    public string title { get; set; }
+    public string email { get; set; }
 
     [DataMember]
-    public CourseLevel level { get; set; }
+    public string password { get; set; }
 
-    [DataMember]
-    public string description { get; set; }
-  }
+    }
 }

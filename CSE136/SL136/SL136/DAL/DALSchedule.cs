@@ -87,9 +87,7 @@ namespace DAL
         return true;
     }
 
-<<<<<<< HEAD
-    public static Schedule GetSchedule(int id, ref List<string> errors)
-=======
+
     public static Quota GetQuota(string class_id, ref List<string> errors)
     {
         SqlConnection conn = new SqlConnection(connection_string);
@@ -131,7 +129,6 @@ namespace DAL
 
 
     public static Schedule GetSchedule(string schedule_id, ref List<string> errors)
->>>>>>> fc2de74d17ddf8386f5a967f57cfaa909577be62
     {
       SqlConnection conn = new SqlConnection(connection_string);     
       Schedule schedule = new Schedule(); 
@@ -177,9 +174,6 @@ namespace DAL
       return schedule;
     }    
 
-<<<<<<< HEAD
-    public static int InsertSchedule(Schedule schedule, ref List<string> errors)
-=======
     public static void UpdateSchedule(Schedule s, ref List<string> errors)
     {
         SqlConnection conn = new SqlConnection(connection_string);
@@ -226,7 +220,6 @@ namespace DAL
 
 
     public static string InsertSchedule(Schedule schedule, ref List<string> errors)
->>>>>>> fc2de74d17ddf8386f5a967f57cfaa909577be62
     {
         int idVal = -1;
         SqlConnection conn = new SqlConnection(connection_string);        

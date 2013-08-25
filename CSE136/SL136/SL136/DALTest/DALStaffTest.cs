@@ -65,58 +65,37 @@ namespace DALTest
         ///A test for Insertadmin
         ///</summary>
         [TestMethod]
-        public void InsertStaffTest()
+        public void CRUDStaffTest()
         {
             Staff staff = new Staff();
-            staff.email = "test@ucsd.edu";
-            staff.password = "test";
-
+            staff.email = "lolmamajamas@email.com";
+            staff.password = "simpsons";
             List<string> errors = new List<string>();
-            staff.id = DALStaff.InsertStaff(staff, ref errors);
 
-            //Assert.AreEqual(0, errors.Count);
-
-            Staff verifyStaff = DALStaff.GetStaffDetail(staff.email, ref errors);
+            string id = DALStaff.InsertStaff(staff, ref errors);
+            staff.id = id;
+            Staff verifyStaff = DALStaff.GetStaffDetail(staff.id, ref errors);
 
             Assert.AreEqual(0, errors.Count);
             Assert.AreEqual(staff.id, verifyStaff.id);
             Assert.AreEqual(staff.email, verifyStaff.email);
             Assert.AreEqual(staff.password, verifyStaff.password);
 
-            Staff staff2 = new Staff();
-            staff2.email = "last2";
-            staff2.password = "test";
-            /*
-            DALAdmin.Updateadmin(admin2, ref errors);
+            staff.email = "herpderp";
+            staff.password = "DOYOULIKEWAFFLES";
 
-            verifyAdmin = DALAdmin.GetadminDetail(admin2.id, ref errors);
+            DALStaff.UpdateStaff(staff, ref errors);
+            verifyStaff = DALStaff.GetStaffDetail(staff.id, ref errors);
+
             Assert.AreEqual(0, errors.Count);
-            Assert.AreEqual(admin2.first_name, verifyadmin.first_name);
-            Assert.AreEqual(admin2.last_name, verifyadmin.last_name);
-      
-            List<Schedule> scheduleList = DALSchedule.GetScheduleList("", "", ref errors);
+            Assert.AreEqual(staff.id, verifyStaff.id);
+            Assert.AreEqual(staff.email, verifyStaff.email);
+            Assert.AreEqual(staff.password, verifyStaff.password);
+
+            DALStaff.DeleteStaff(staff.id, ref errors);
+            Staff verifyEmptyStaff = DALStaff.GetStaffDetail(staff.id, ref errors);
             Assert.AreEqual(0, errors.Count);
-
-            // enroll all available scheduled courses for this admin
-            for (int i = 0; i < scheduleList.Count; i++)
-            {
-              DALAdmin.EnrollSchedule(admin.id, scheduleList[i].id, ref errors);
-              Assert.AreEqual(0, errors.Count);
-            }
-
-            // drop all available scheduled courses for this admin
-            for (int i = 0; i < scheduleList.Count; i++)
-            {
-              DALAdmin.DropEnrolledSchedule(admin.id, scheduleList[i].id, ref errors);
-              Assert.AreEqual(0, errors.Count);
-            }
-
-            DALAdmin.Deleteadmin(admin.id, ref errors);
-
-            admin verifyEmptyadmin = DALadmin.GetadminDetail(admin.id, ref errors);
-            Assert.AreEqual(0, errors.Count);
-            Assert.AreEqual(null, verifyEmptyadmin);
-            */
+            Assert.AreEqual(null, verifyEmptyStaff);
         }
     }
 }

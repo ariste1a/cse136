@@ -12,9 +12,9 @@ namespace DALTest
     /// Summary description for UnitTest1
     /// </summary>
     [TestClass]
-    public class DALScheduleTest
+    public class DALCombineTests
     {
-        public DALScheduleTest()
+        public DALCombineTests()
         {
             //
             // TODO: Add constructor logic here
@@ -65,17 +65,18 @@ namespace DALTest
         ///A test for Insertadmin
         ///</summary>
         [TestMethod]
-        public void CRUDScheduleTest()
+        public void DALCombineTest()
         {
-            Schedule schedule = new Schedule(); 
+            //CREATE THE CLASS INSTANCE/COURSE SCHEDULE
+            Schedule schedule = new Schedule();
             List<string> errors = new List<string>();
-            Course course = DALCourse.GetCourse("1", ref errors);    
-            schedule.year = "2014"; 
-            schedule.quarter = "Spring"; 
-            schedule.session = "A00"; 
-            schedule.course = course;             
+            Course course = DALCourse.GetCourse("1", ref errors);
+            schedule.year = "2014";
+            schedule.quarter = "Spring";
+            schedule.session = "A00";
+            schedule.course = course;
             schedule.quota = "45";
-            schedule.time = "1";             
+            schedule.time = "1";
             schedule.instructor = "1";
             schedule.day = "1";
             schedule.type = "LE";
@@ -87,26 +88,41 @@ namespace DALTest
             Assert.AreEqual(0, errors.Count);
             Assert.AreEqual(schedule.id, verifySchedule.id);
             Assert.AreEqual(schedule.quarter, verifySchedule.quarter);
-            Assert.AreEqual(schedule.session, verifySchedule.session); 
-            Assert.AreEqual(schedule.course.id, verifySchedule.course.id);            
-
-            schedule.time = "2";
-            schedule.year = "5";
-            schedule.session = "B01";
-            schedule.quota = "100";
-            
-            DALSchedule.UpdateSchedule(schedule, ref errors);
-            verifySchedule = DALSchedule.GetSchedule(schedule.id, ref errors);
-            Assert.AreEqual(0, errors.Count);
-            Assert.AreEqual("8am-9:30am", verifySchedule.time);
-            Assert.AreEqual("5", verifySchedule.year);
             Assert.AreEqual(schedule.session, verifySchedule.session);
-            Assert.AreEqual(schedule.quota, verifySchedule.quota);
+            Assert.AreEqual(schedule.course.id, verifySchedule.course.id);
+
+            
+            string classid = DAL.DALDiscussion.createDiscussion(schedule.id, "A00", 1, 1, 1, 50, ref errors);
+            Assert.IsTrue(errors.Count == 0);
+            List<Schedule> discussions = DAL.DALDiscussion.GetDiscussions(schedule.id, ref errors);
+            Boolean check = false;
+            foreach (Schedule o in discussions)
+            {
+                if (o.id.ToString() == classid) { check = true; }
+            }
+            Assert.IsTrue(check);
+
+            //enroll the student. 
+            DALStudent.EnrollSchedule("A000001", schedule.id, ref errors);
+            DALStudent.EnrollSchedule("A000001", Convert.ToInt32(classid), ref errors);
+            List<string> scheduleList = DALStudent.GetStudentSchedule("A000001", ref errors);
+            Assert.AreEqual(scheduleList.Count, 2);
+            Assert.AreEqual(scheduleList[0], schedule.id.ToString());
+            Assert.AreEqual(scheduleList[1], classid);
 
             DALSchedule.DeleteSchedule(schedule.id, ref errors);
             Schedule verifyEmptyCourse = DALSchedule.GetSchedule(schedule.id, ref errors);
             Assert.AreEqual(0, errors.Count);
             Assert.AreEqual(null, verifyEmptyCourse);
+
+            Assert.IsTrue(DAL.DALDiscussion.removeDiscussion(classid, ref errors));
+            Assert.IsTrue(errors.Count == 0);
+            // same
+            discussions = DAL.DALDiscussion.GetDiscussions(100, ref errors);
+            foreach (Schedule o in discussions)
+            {
+                Assert.AreNotEqual(classid, o.id.ToString());
+            }                
         }
     }
 }

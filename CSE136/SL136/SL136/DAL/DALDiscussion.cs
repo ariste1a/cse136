@@ -67,6 +67,7 @@ namespace DAL
 
         public static string createDiscussion(int lecture_id, string session, int day, int time, int instructor, int quota, ref List<String> errors)
         {
+            string idval = "-1";
             SqlConnection conn = new SqlConnection(connection_string);
             try
             {
@@ -93,14 +94,13 @@ namespace DAL
                 DataSet myDS = new DataSet();
                // errors.Add(myDS.Tables.ToString());
                 mySA.Fill(myDS);
-                
-                return myDS.Tables[0].Rows[0]["discussion_id"].ToString();
+                idval = myDS.Tables[0].Rows[0]["identity"].ToString();                                   
             }
             catch (Exception e)
             {
-                errors.Add(e.ToString());
-                return "0";
+                errors.Add(e.ToString());                
             }
+            return idval;
         }
 
     public static Boolean removeDiscussion(string discussion_id, ref List<String> errors) 

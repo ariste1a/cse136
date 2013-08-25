@@ -186,6 +186,7 @@ namespace DAL
             string strSQL = "spUpdateCourseSchedule";
 
             SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@course_id", SqlDbType.Int));
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@year", SqlDbType.Int));
@@ -197,15 +198,16 @@ namespace DAL
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@type", SqlDbType.VarChar, 2));
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@quarter", SqlDbType.VarChar, 50));
 
-            mySA.SelectCommand.Parameters["@schedule_id"].Value = s.id;
-            mySA.SelectCommand.Parameters["@course_id"].Value = s.course;
+            mySA.SelectCommand.Parameters["@schedule_id"].Value = Convert.ToInt32(s.id);
+            mySA.SelectCommand.Parameters["@course_id"].Value = Convert.ToInt32(s.course.id);
+            mySA.SelectCommand.Parameters["@year"].Value = Convert.ToInt32(s.year);
             mySA.SelectCommand.Parameters["@session"].Value = s.session;
-            mySA.SelectCommand.Parameters["@schedule_day_id"].Value = s.day;
-            mySA.SelectCommand.Parameters["@schedule_time_id"].Value = s.time;
-            mySA.SelectCommand.Parameters["@instructor_id"].Value = s.instructor;
-            mySA.SelectCommand.Parameters["@quota"].Value = s.quota;
+            mySA.SelectCommand.Parameters["@schedule_day_id"].Value = Convert.ToInt32(s.day);
+            mySA.SelectCommand.Parameters["@schedule_time_id"].Value = Convert.ToInt32(s.time);
+            mySA.SelectCommand.Parameters["@instructor_id"].Value = Convert.ToInt32(s.instructor);
+            mySA.SelectCommand.Parameters["@quota"].Value = Convert.ToInt32(s.quota);
             mySA.SelectCommand.Parameters["@type"].Value = s.type;
-            mySA.SelectCommand.Parameters["@quarter"].Value = s.quarter;
+            mySA.SelectCommand.Parameters["@quarter"].Value = s.quarter;       
 
             DataSet myDS = new DataSet();
             mySA.Fill(myDS);

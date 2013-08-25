@@ -288,6 +288,38 @@ namespace DAL
       return studentList;
     }
 
+
+    public static List<string> GetStudentSchedule(string student_id, ref List<string> errors)
+    {
+        SqlConnection conn = new SqlConnection(connection_string);
+        string strSQL = "spGetStudentSchedule";
+        List<string> scheduleList = new List<string>();
+        try
+        {
+            SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@student_id", SqlDbType.VarChar, 20));
+            mySA.SelectCommand.Parameters["@student_id"].Value = student_id;
+            DataSet myDS = new DataSet();
+            mySA.Fill(myDS);
+
+            for (int i = 0; i < myDS.Tables[0].Rows.Count; i++)
+            {
+                scheduleList.Add(myDS.Tables[0].Rows[i]["schedule_id"].ToString());
+            }
+        }
+        catch (Exception e)
+        {
+            errors.Add("Error: " + e.ToString());
+        }
+        finally
+        {
+            conn.Dispose();
+            conn = null;
+        }
+        return scheduleList; 
+
+    }
     public static void EnrollSchedule(string student_id, int schedule_id, ref List<string> errors)
     {
       SqlConnection conn = new SqlConnection(connection_string);

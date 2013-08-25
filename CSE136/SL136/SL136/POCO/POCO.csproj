@@ -45,6 +45,7 @@
     <Compile Include="CourseLevel.cs" />
     <Compile Include="Logon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quota.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Staff.cs" />
     <Compile Include="Student.cs" />

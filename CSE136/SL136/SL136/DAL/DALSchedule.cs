@@ -128,7 +128,7 @@ namespace DAL
     }
 
 
-    public static Schedule GetSchedule(string schedule_id, ref List<string> errors)
+    public static Schedule GetSchedule(int schedule_id, ref List<string> errors)
     {
       SqlConnection conn = new SqlConnection(connection_string);     
       Schedule schedule = new Schedule(); 
@@ -138,10 +138,14 @@ namespace DAL
         SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
         mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
         mySA.SelectCommand.Parameters.Add(new SqlParameter("@identity", SqlDbType.Int));
-        mySA.SelectCommand.Parameters["@identity"].Value = id;
+        mySA.SelectCommand.Parameters["@identity"].Value = schedule_id;
                 
         DataSet myDS = new DataSet();
         mySA.Fill(myDS);
+
+
+        if (myDS.Tables[0].Rows.Count == 0)
+            return null;
 
         schedule.id = Convert.ToInt32(myDS.Tables[0].Rows[0]["schedule_id"].ToString());
         schedule.year = myDS.Tables[0].Rows[0]["year"].ToString();
@@ -219,7 +223,7 @@ namespace DAL
     }
 
 
-    public static string InsertSchedule(Schedule schedule, ref List<string> errors)
+    public static int InsertSchedule(Schedule schedule, ref List<string> errors)
     {
         int idVal = -1;
         SqlConnection conn = new SqlConnection(connection_string);        
@@ -227,8 +231,7 @@ namespace DAL
         {
             string strSQL = "spInsertSchedule";
             SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
-            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
-            //mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;            
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@course_id", SqlDbType.Int));
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@year", SqlDbType.Int));
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@session", SqlDbType.VarChar, 50));
@@ -273,9 +276,9 @@ namespace DAL
         {
             string strSQL = "spDeleteCourseSchedule";
             SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
             mySA.SelectCommand.Parameters["@schedule_id"].Value = Convert.ToInt32(id);      
-
             DataSet myDS = new DataSet();
             mySA.Fill(myDS);            
         }

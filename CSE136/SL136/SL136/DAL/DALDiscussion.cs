@@ -72,8 +72,8 @@ namespace DAL
             {
                 string strSQL = "spInsertDiscussion";
                 SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+                mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@lecture_id", SqlDbType.Int));
- 
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@session", SqlDbType.VarChar, 20));
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_day_id", SqlDbType.Int));
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_time_id", SqlDbType.Int));

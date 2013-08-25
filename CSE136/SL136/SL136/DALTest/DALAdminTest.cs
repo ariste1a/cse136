@@ -65,7 +65,7 @@ namespace DALTest
     ///A test for Insertadmin
     ///</summary>
     [TestMethod]
-    public void InsertAdminTest()
+    public void CRUDAdminTest()
     {
       Admin admin = new Admin();
       admin.email = "test@ucsd.edu";
@@ -80,46 +80,18 @@ namespace DALTest
       Admin verifyAdmin = DALAdmin.GetAdminDetail(admin.email, ref errors);
 
       Assert.AreEqual(0, errors.Count);
-      //Assert.AreEqual(admin.id, verifyAdmin.id);
-      //Assert.AreEqual(admin.email, verifyAdmin.email);
-      //Assert.AreEqual(admin.password, verifyAdmin.password);
+      Assert.AreEqual(admin.id, verifyAdmin.id);
+      Assert.AreEqual(admin.email, verifyAdmin.email);
+      Assert.AreEqual(admin.password, verifyAdmin.password);
 
       Admin admin2 = new Admin();       
       admin2.email = "last2";
       admin2.password = "test";
 
       DALAdmin.DeleteAdmin(admin.id, ref errors);
-      /*
-      DALAdmin.Updateadmin(admin2, ref errors);
-
-      verifyAdmin = DALAdmin.GetadminDetail(admin2.id, ref errors);
+      Admin verifyEmptyCourse = DALAdmin.GetAdminDetail(admin.email, ref errors);
       Assert.AreEqual(0, errors.Count);
-      Assert.AreEqual(admin2.first_name, verifyadmin.first_name);
-      Assert.AreEqual(admin2.last_name, verifyadmin.last_name);
-      
-      List<Schedule> scheduleList = DALSchedule.GetScheduleList("", "", ref errors);
-      Assert.AreEqual(0, errors.Count);
-
-      // enroll all available scheduled courses for this admin
-      for (int i = 0; i < scheduleList.Count; i++)
-      {
-        DALAdmin.EnrollSchedule(admin.id, scheduleList[i].id, ref errors);
-        Assert.AreEqual(0, errors.Count);
-      }
-
-      // drop all available scheduled courses for this admin
-      for (int i = 0; i < scheduleList.Count; i++)
-      {
-        DALAdmin.DropEnrolledSchedule(admin.id, scheduleList[i].id, ref errors);
-        Assert.AreEqual(0, errors.Count);
-      }
-
-      DALAdmin.Deleteadmin(admin.id, ref errors);
-
-      admin verifyEmptyadmin = DALadmin.GetadminDetail(admin.id, ref errors);
-      Assert.AreEqual(0, errors.Count);
-      Assert.AreEqual(null, verifyEmptyadmin);
-      */ 
+      Assert.AreEqual(null, verifyEmptyCourse);
     }
   }
 }

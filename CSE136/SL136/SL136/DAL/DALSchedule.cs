@@ -86,6 +86,46 @@ namespace DAL
         return true;
     }
 
+    public static Quota GetQuota(string class_id, ref List<string> errors)
+    {
+        SqlConnection conn = new SqlConnection(connection_string);
+        Quota q = null;
+
+        try
+        {
+            string strSQL = "spGetQuota";
+
+            SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@class_id", SqlDbType.VarChar, 50));
+            mySA.SelectCommand.Parameters["@class_id"].Value = class_id;
+
+            DataSet myDS = new DataSet();
+            mySA.Fill(myDS);
+
+            if (myDS.Tables[0].Rows.Count == 0)
+                return null;
+
+            q = new Quota();
+            q.schedule_id = myDS.Tables[0].Rows[0]["schedule_id"].ToString();
+            q.course_title = myDS.Tables[0].Rows[0]["course_title"].ToString();
+            q.students_enrolled = myDS.Tables[0].Rows[0]["students_enrolled"].ToString();
+            q.max_students = myDS.Tables[0].Rows[0]["max_students"].ToString(); 
+        }
+        catch (Exception e)
+        {
+            errors.Add("Error: " + e.ToString());
+            Debug.WriteLine(e.ToString());
+        }
+        finally
+        {
+            conn.Dispose();
+            conn = null;
+        }
+        return q;
+    }
+
+
     public static Schedule GetSchedule(string schedule_id, ref List<string> errors)
     {
       SqlConnection conn = new SqlConnection(connection_string);     
@@ -129,6 +169,51 @@ namespace DAL
 
       return schedule;
     }
+
+    public static void UpdateSchedule(Schedule s, ref List<string> errors)
+    {
+        SqlConnection conn = new SqlConnection(connection_string);
+        try
+        {
+            string strSQL = "spUpdateCourseSchedule";
+
+            SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@course_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@year", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@session", SqlDbType.VarChar, 50));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_day_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_time_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@instructor_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@quota", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@type", SqlDbType.VarChar, 2));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@quarter", SqlDbType.VarChar, 50));
+
+            mySA.SelectCommand.Parameters["@schedule_id"].Value = s.id;
+            mySA.SelectCommand.Parameters["@course_id"].Value = s.course;
+            mySA.SelectCommand.Parameters["@session"].Value = s.session;
+            mySA.SelectCommand.Parameters["@schedule_day_id"].Value = s.day;
+            mySA.SelectCommand.Parameters["@schedule_time_id"].Value = s.time;
+            mySA.SelectCommand.Parameters["@instructor_id"].Value = s.instructor;
+            mySA.SelectCommand.Parameters["@quota"].Value = s.quota;
+            mySA.SelectCommand.Parameters["@type"].Value = s.type;
+            mySA.SelectCommand.Parameters["@quarter"].Value = s.quarter;
+
+            DataSet myDS = new DataSet();
+            mySA.Fill(myDS);
+
+        }
+        catch (Exception e)
+        {
+            errors.Add("Error: " + e.ToString());
+        }
+        finally
+        {
+            conn.Dispose();
+            conn = null;
+        }
+    }
+
 
     public static string InsertSchedule(Schedule schedule, ref List<string> errors)
     {

@@ -5,7 +5,8 @@ using System.Text;
 using POCO;  // must add this...
 using System.Configuration; // must add this... make sure to add "System.Configuration" first
 using System.Data.SqlClient; // must add this...
-using System.Data; // must add this...
+using System.Data;
+using System.Diagnostics; // must add this...
 
 
 namespace DAL
@@ -53,10 +54,11 @@ namespace DAL
                 string strSQL = "spUpdateStaffInfo";
 
                 SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
-                mySA.SelectCommand.Parameters.Add(new SqlParameter("@staff_id", SqlDbType.VarChar, 100));
-                mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 100));
-                mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 100));
-                
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@staff_id", SqlDbType.Int));
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50));
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 50));
+
+                mySA.SelectCommand.Parameters["@staff_id"].Value = staff.id; 
                 mySA.SelectCommand.Parameters["@email"].Value = staff.email;
                 mySA.SelectCommand.Parameters["@password"].Value = staff.password;
 
@@ -81,7 +83,7 @@ namespace DAL
 
             try
             {
-                string strSQL = "spDeleteStaffInfo";
+                string strSQL = "spDeleteStaff";
 
                 SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
                 mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -132,13 +134,13 @@ namespace DAL
             catch (Exception e)
             {
                 errors.Add("Error: " + e.ToString());
+                Debug.WriteLine(e.ToString());
             }
             finally
             {
                 conn.Dispose();
                 conn = null;
             }
-
             return staff;
         }
     }

@@ -86,7 +86,7 @@ namespace DAL
         return true;
     }
 
-     public static Schedule GetSchedule(string schedule_id, ref List<string> errors)
+    public static Schedule GetSchedule(string schedule_id, ref List<string> errors)
     {
       SqlConnection conn = new SqlConnection(connection_string);     
       Schedule schedule = new Schedule(); 
@@ -94,23 +94,26 @@ namespace DAL
       {
         string strSQL = "spGetScheduleList";
         SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
-        mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int);
-        mySA.SelectCommand.Parameters["@schedule_id"].Value = schedule_id;        
-        schedule.id = Convert.ToInt32(myDS.Tables[0].Rows[i]["schedule_id"].ToString());
-        schedule.year = myDS.Tables[0].Rows[i]["year"].ToString();
-        schedule.quarter = myDS.Tables[0].Rows[i]["quarter"].ToString();
-        schedule.session = myDS.Tables[0].Rows[i]["session"].ToString();
-        schedule.quota = myDS.Tables[0].Rows[i]["quota"].ToString();
-        schedule.time = myDS.Tables[0].Rows[i]["schedule_time"].ToString();
-        schedule.day = myDS.Tables[0].Rows[i]["schedule_day"].ToString();
-        schedule.type = myDS.Tables[0].Rows[i]["type"].ToString();
-        schedule.enrollments = myDS.Tables[0].Rows[i]["enrollments"].ToString(); 
+        mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
+        mySA.SelectCommand.Parameters["@schedule_id"].Value = schedule_id;
+        DataSet myDS = new DataSet();
+        mySA.Fill(myDS);
+
+        schedule.id = Convert.ToInt32(myDS.Tables[0].Rows[0]["schedule_id"].ToString());
+        schedule.year = myDS.Tables[0].Rows[0]["year"].ToString();
+        schedule.quarter = myDS.Tables[0].Rows[0]["quarter"].ToString();
+        schedule.session = myDS.Tables[0].Rows[0]["session"].ToString();
+        schedule.quota = myDS.Tables[0].Rows[0]["quota"].ToString();
+        schedule.time = myDS.Tables[0].Rows[0]["schedule_time"].ToString();
+        schedule.day = myDS.Tables[0].Rows[0]["schedule_day"].ToString();
+        schedule.type = myDS.Tables[0].Rows[0]["type"].ToString();
+        schedule.enrollments = myDS.Tables[0].Rows[0]["enrollments"].ToString(); 
         schedule.course =
           new Course
           {
-            id = myDS.Tables[0].Rows[i]["course_id"].ToString(),
-            title = myDS.Tables[0].Rows[i]["course_title"].ToString(),
-            description = myDS.Tables[0].Rows[i]["course_description"].ToString(),
+            id = myDS.Tables[0].Rows[0]["course_id"].ToString(),
+            title = myDS.Tables[0].Rows[0]["course_title"].ToString(),
+            description = myDS.Tables[0].Rows[0]["course_description"].ToString(),
           };
 
       }
@@ -125,6 +128,42 @@ namespace DAL
       }
 
       return schedule;
+    }
+
+    public static string InsertSchedule(Schedule schedule, ref List<string> errors)
+    {
+        string idVal = "-1";
+        SqlConnection conn = new SqlConnection(connection_string);        
+        try
+        {
+            string strSQL = "spInsertSchedule";
+            SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters["@schedule_id"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@year"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@session"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@schedule_day_id"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@schedule_time_id"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@instructor_id"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@quota"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@type"].Value = schedule.id;
+            mySA.SelectCommand.Parameters["@quarter"].Value = schedule.id;            
+
+            DataSet myDS = new DataSet();
+            mySA.Fill(myDS);
+            idVal = myDS.Tables[0].Rows[0]["identity"].ToString(); 
+        }
+        catch (Exception e)
+        {
+            errors.Add("Error: " + e.ToString());
+        }
+        finally
+        {
+            conn.Dispose();
+            conn = null;
+        }
+        return idVal; 
+                
     }
       
     public static List<Schedule> GetScheduleList(string year, string quarter, ref List<string> errors)

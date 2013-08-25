@@ -10,7 +10,7 @@ namespace POCO
     public class Schedule
     {
         [DataMember]
-        public int id { get; set; }
+        public string id { get; set; }
 
         [DataMember]
         public string year { get; set; }

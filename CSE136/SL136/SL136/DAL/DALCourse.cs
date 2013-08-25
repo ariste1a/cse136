@@ -128,8 +128,7 @@ namespace DAL
     }
     public static void DeleteCourse(string id, ref List<string> errors)
     {
-        SqlConnection conn = new SqlConnection(connection_string);
-        Course course = null;
+        SqlConnection conn = new SqlConnection(connection_string);        
         try
         {
             string strSQL = "spDeleteCourse";

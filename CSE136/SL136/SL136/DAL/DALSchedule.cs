@@ -60,6 +60,7 @@ namespace DAL
         conn = null;
         return true;
     }
+
     public static Boolean deleteStudentSchedule(string student_id, string schedule_id)
     {
         SqlConnection conn = new SqlConnection(connection_string);
@@ -85,6 +86,7 @@ namespace DAL
         conn = null;
         return true;
     }
+
 
     public static Quota GetQuota(string class_id, ref List<string> errors)
     {
@@ -134,8 +136,10 @@ namespace DAL
       {
         string strSQL = "spGetScheduleList";
         SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
-        mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
-        mySA.SelectCommand.Parameters["@schedule_id"].Value = schedule_id;
+        mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+        mySA.SelectCommand.Parameters.Add(new SqlParameter("@identity", SqlDbType.Int));
+        mySA.SelectCommand.Parameters["@identity"].Value = id;
+                
         DataSet myDS = new DataSet();
         mySA.Fill(myDS);
 
@@ -168,7 +172,7 @@ namespace DAL
       }
 
       return schedule;
-    }
+    }    
 
     public static void UpdateSchedule(Schedule s, ref List<string> errors)
     {
@@ -217,26 +221,37 @@ namespace DAL
 
     public static string InsertSchedule(Schedule schedule, ref List<string> errors)
     {
-        string idVal = "-1";
+        int idVal = -1;
         SqlConnection conn = new SqlConnection(connection_string);        
         try
         {
             string strSQL = "spInsertSchedule";
             SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
-            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
-            mySA.SelectCommand.Parameters["@schedule_id"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@year"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@session"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@schedule_day_id"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@schedule_time_id"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@instructor_id"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@quota"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@type"].Value = schedule.id;
-            mySA.SelectCommand.Parameters["@quarter"].Value = schedule.id;            
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+            //mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@course_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@year", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@session", SqlDbType.VarChar, 50));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_day_id", SqlDbType.Int));  
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_time_id", SqlDbType.Int));  
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@instructor_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@quota", SqlDbType.Int));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@type", SqlDbType.VarChar, 2));
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@quarter", SqlDbType.VarChar, 50));  
+
+            mySA.SelectCommand.Parameters["@course_id"].Value = Convert.ToInt32(schedule.course.id);
+            mySA.SelectCommand.Parameters["@year"].Value = Convert.ToInt32(schedule.year);
+            mySA.SelectCommand.Parameters["@session"].Value = schedule.session;
+            mySA.SelectCommand.Parameters["@schedule_day_id"].Value = Convert.ToInt32(schedule.day);
+            mySA.SelectCommand.Parameters["@schedule_time_id"].Value = Convert.ToInt32(schedule.time);
+            mySA.SelectCommand.Parameters["@instructor_id"].Value = Convert.ToInt32(schedule.instructor);
+            mySA.SelectCommand.Parameters["@quota"].Value = Convert.ToInt32(schedule.quota);
+            mySA.SelectCommand.Parameters["@type"].Value = schedule.type;
+            mySA.SelectCommand.Parameters["@quarter"].Value = schedule.quarter;            
 
             DataSet myDS = new DataSet();
             mySA.Fill(myDS);
-            idVal = myDS.Tables[0].Rows[0]["identity"].ToString(); 
+            idVal = Convert.ToInt32(myDS.Tables[0].Rows[0]["identity"].ToString()); 
         }
         catch (Exception e)
         {
@@ -250,7 +265,31 @@ namespace DAL
         return idVal; 
                 
     }
-      
+
+    public static void DeleteSchedule(int id, ref List<string> errors)
+    {
+        SqlConnection conn = new SqlConnection(connection_string);        
+        try
+        {
+            string strSQL = "spDeleteCourseSchedule";
+            SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
+            mySA.SelectCommand.Parameters["@schedule_id"].Value = Convert.ToInt32(id);      
+
+            DataSet myDS = new DataSet();
+            mySA.Fill(myDS);            
+        }
+        catch (Exception e)
+        {
+            errors.Add("Error: " + e.ToString());
+        }
+        finally
+        {
+            conn.Dispose();
+            conn = null;
+        }                              
+    }
+
     public static List<Schedule> GetScheduleList(string year, string quarter, ref List<string> errors)
     {
       SqlConnection conn = new SqlConnection(connection_string);

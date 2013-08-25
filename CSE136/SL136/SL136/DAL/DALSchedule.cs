@@ -67,12 +67,12 @@ namespace DAL
         {
             string strSQL = "deleteStudentSchedule";
             SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@student_id", SqlDbType.VarChar, 20));
             mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int));
             mySA.SelectCommand.Parameters["@student_id"].Value = student_id;
             mySA.SelectCommand.Parameters["@schedule_id"].Value = schedule_id;
-            DataSet myDS = new DataSet();
-            mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataSet myDS = new DataSet();            
             mySA.Fill(myDS);
 
         }
@@ -86,7 +86,46 @@ namespace DAL
         return true;
     }
 
+     public static Schedule GetSchedule(string schedule_id, ref List<string> errors)
+    {
+      SqlConnection conn = new SqlConnection(connection_string);     
+      Schedule schedule = new Schedule(); 
+      try
+      {
+        string strSQL = "spGetScheduleList";
+        SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+        mySA.SelectCommand.Parameters.Add(new SqlParameter("@schedule_id", SqlDbType.Int);
+        mySA.SelectCommand.Parameters["@schedule_id"].Value = schedule_id;        
+        schedule.id = Convert.ToInt32(myDS.Tables[0].Rows[i]["schedule_id"].ToString());
+        schedule.year = myDS.Tables[0].Rows[i]["year"].ToString();
+        schedule.quarter = myDS.Tables[0].Rows[i]["quarter"].ToString();
+        schedule.session = myDS.Tables[0].Rows[i]["session"].ToString();
+        schedule.quota = myDS.Tables[0].Rows[i]["quota"].ToString();
+        schedule.time = myDS.Tables[0].Rows[i]["schedule_time"].ToString();
+        schedule.day = myDS.Tables[0].Rows[i]["schedule_day"].ToString();
+        schedule.type = myDS.Tables[0].Rows[i]["type"].ToString();
+        schedule.enrollments = myDS.Tables[0].Rows[i]["enrollments"].ToString(); 
+        schedule.course =
+          new Course
+          {
+            id = myDS.Tables[0].Rows[i]["course_id"].ToString(),
+            title = myDS.Tables[0].Rows[i]["course_title"].ToString(),
+            description = myDS.Tables[0].Rows[i]["course_description"].ToString(),
+          };
 
+      }
+      catch (Exception e)
+      {
+        errors.Add("Error: " + e.ToString());
+      }
+      finally
+      {
+        conn.Dispose();
+        conn = null;
+      }
+
+      return schedule;
+    }
       
     public static List<Schedule> GetScheduleList(string year, string quarter, ref List<string> errors)
     {

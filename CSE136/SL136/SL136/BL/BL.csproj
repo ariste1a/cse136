@@ -59,6 +59,7 @@
     <Compile Include="BLCourse.cs" />
     <Compile Include="BLSchedule.cs" />
     <Compile Include="BLStudent.cs" />
+    <Compile Include="BLDiscussion.cs" />
     <Compile Include="ErrorLog\AsynchLog.cs" />
     <Compile Include="ErrorLog\ErrorLogFactory.cs" />
     <Compile Include="ErrorLog\IErrorLog.cs" />

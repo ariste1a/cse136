@@ -79,6 +79,7 @@ namespace DALTest
 
             Assert.AreEqual(0, errors.Count);
             Assert.AreEqual(course.id, verifyCourse.id);
+            Assert.AreEqual(course.title, verifyCourse.title);
             Assert.AreEqual(course.description, verifyCourse.description);
             Assert.AreEqual(course.level, verifyCourse.level);
 
@@ -90,6 +91,7 @@ namespace DALTest
             verifyCourse = DALCourse.GetCourse(course.id, ref errors); 
 
             Assert.AreEqual(0, errors.Count);
+            Assert.AreEqual(course.id, verifyCourse.id);
             Assert.AreEqual(course.id, verifyCourse.id);
             Assert.AreEqual(course.description, verifyCourse.description);
             Assert.AreEqual(course.level, verifyCourse.level);

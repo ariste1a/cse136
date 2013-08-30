@@ -154,6 +154,7 @@ namespace DAL
         schedule.quota = myDS.Tables[0].Rows[0]["quota"].ToString();
         schedule.time = myDS.Tables[0].Rows[0]["schedule_time"].ToString();
         schedule.day = myDS.Tables[0].Rows[0]["schedule_day"].ToString();
+        schedule.instructor = myDS.Tables[0].Rows[0]["instructor_id"].ToString();
         schedule.type = myDS.Tables[0].Rows[0]["type"].ToString();
         schedule.enrollments = myDS.Tables[0].Rows[0]["enrollments"].ToString(); 
         schedule.course =

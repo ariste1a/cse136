@@ -46,7 +46,7 @@ namespace DALTest
         }
 
         [TestMethod]
-        public void DiscussionsUnitTest()
+        public void CRUDDiscussionsTest()
         {
             List<String> errors = new List<String>();
             string classid =DAL.DALDiscussion.createDiscussion(100, "A01", 1,1,1,50, ref errors);
@@ -71,5 +71,5 @@ namespace DALTest
                 Assert.AreNotEqual(classid, o.id.ToString());
             }
         }
-    }   // class
-}       // namespace
+    }   
+}       

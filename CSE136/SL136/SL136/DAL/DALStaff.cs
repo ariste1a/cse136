@@ -54,6 +54,7 @@ namespace DAL
                 string strSQL = "spUpdateStaffInfo";
 
                 SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+                mySA.SelectCommand.CommandType = CommandType.StoredProcedure; 
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@staff_id", SqlDbType.Int));
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50));
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 50));

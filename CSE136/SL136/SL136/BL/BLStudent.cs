@@ -106,6 +106,5 @@ namespace BL
 
       DALStudent.DropEnrolledSchedule(student_id, schedule_id, ref errors);
     }
-
   }
 }

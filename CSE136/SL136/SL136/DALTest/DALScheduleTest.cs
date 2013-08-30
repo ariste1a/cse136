@@ -88,7 +88,15 @@ namespace DALTest
             Assert.AreEqual(schedule.id, verifySchedule.id);
             Assert.AreEqual(schedule.quarter, verifySchedule.quarter);
             Assert.AreEqual(schedule.session, verifySchedule.session); 
-            Assert.AreEqual(schedule.course.id, verifySchedule.course.id);            
+            Assert.AreEqual(schedule.course.id, verifySchedule.course.id);
+            Assert.AreEqual(schedule.course.title, verifySchedule.course.title);
+            Assert.AreEqual(schedule.course.title, verifySchedule.course.title);
+            Assert.AreEqual(schedule.course.description, verifySchedule.course.description);
+            Assert.AreEqual("8am-9am", verifySchedule.time);
+            Assert.AreEqual(schedule.year, verifySchedule.year);
+            Assert.AreEqual(schedule.instructor, verifySchedule.instructor);
+            Assert.AreEqual("Mon/Wed", verifySchedule.day);
+            Assert.AreEqual(schedule.type, verifySchedule.type);
 
             schedule.time = "2";
             schedule.year = "5";
@@ -96,12 +104,21 @@ namespace DALTest
             schedule.quota = "100";
             
             DALSchedule.UpdateSchedule(schedule, ref errors);
+
             verifySchedule = DALSchedule.GetSchedule(schedule.id, ref errors);
             Assert.AreEqual(0, errors.Count);
-            Assert.AreEqual("8am-9:30am", verifySchedule.time);
-            Assert.AreEqual("5", verifySchedule.year);
+            Assert.AreEqual(schedule.id, verifySchedule.id);
+            Assert.AreEqual(schedule.quarter, verifySchedule.quarter);
             Assert.AreEqual(schedule.session, verifySchedule.session);
-            Assert.AreEqual(schedule.quota, verifySchedule.quota);
+            Assert.AreEqual(schedule.course.id, verifySchedule.course.id);
+            Assert.AreEqual(schedule.course.title, verifySchedule.course.title);
+            Assert.AreEqual(schedule.course.title, verifySchedule.course.title);
+            Assert.AreEqual(schedule.course.description, verifySchedule.course.description);
+            Assert.AreEqual("8am-9:30am", verifySchedule.time);
+            Assert.AreEqual(schedule.year, verifySchedule.year);
+            Assert.AreEqual(schedule.instructor, verifySchedule.instructor);
+            Assert.AreEqual("Mon/Wed", verifySchedule.day);
+            Assert.AreEqual(schedule.type, verifySchedule.type);
 
             DALSchedule.DeleteSchedule(schedule.id, ref errors);
             Schedule verifyEmptyCourse = DALSchedule.GetSchedule(schedule.id, ref errors);

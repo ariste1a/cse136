@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DAL;
 using POCO;
-using System.Diagnostics;
+using BL;
 
-namespace DALTest
+namespace BLTest
 {
     /// <summary>
     /// Summary description for UnitTest1
     /// </summary>
     [TestClass]
-    public class DALStaffTest
+    public class BLAuthTest
     {
-        public DALStaffTest()
+        public BLAuthTest()
         {
             //
             // TODO: Add constructor logic here
@@ -62,42 +59,40 @@ namespace DALTest
         //
         #endregion
 
-        /// <summary>
-        ///A test for Insertadmin
-        ///</summary>
         [TestMethod]
-        public void CRUDStaffTest()
+        public void InsertStudentErrorTest()
         {
-            Staff staff = new Staff();
-            staff.email = "lolmamajamas@email.com";
-            staff.password = "simpsons";
             List<string> errors = new List<string>();
 
-            string id = DALStaff.InsertStaff(staff, ref errors);
-            staff.id = id;
-            Staff verifyStaff = DALStaff.GetStaffDetail(staff.email, ref errors);
+            BLStudent.InsertStudent(null, ref errors);
+            Assert.AreEqual(1, errors.Count);
 
-            Assert.AreEqual(0, errors.Count);
-            Assert.AreEqual(staff.id, verifyStaff.id);
-            Assert.AreEqual(staff.email, verifyStaff.email);
-            Assert.AreEqual(staff.password, verifyStaff.password);
+            errors = new List<string>();
 
-            staff.email = "herpderp";
-            staff.password = "DOYOULIKEWAFFLES";
-
-            DALStaff.UpdateStaff(staff, ref errors);
-            verifyStaff = DALStaff.GetStaffDetail(staff.email, ref errors);
-
-            Assert.AreEqual(0, errors.Count);
-            Assert.AreEqual(staff.id, verifyStaff.id);
-            Assert.AreEqual(staff.email, verifyStaff.email);
-            Assert.AreEqual(staff.password, verifyStaff.password);
-
-            DALStaff.DeleteStaff(staff.id, ref errors);
-            Staff verifyEmptyStaff = DALStaff.GetStaffDetail(staff.id, ref errors);
-            Assert.AreEqual(0, errors.Count);
-            Assert.AreEqual(null, verifyEmptyStaff);
-        
+            Student student = new Student();
+            student.id = "";
+            BLStudent.InsertStudent(student, ref errors);
+            Assert.AreEqual(1, errors.Count);
         }
+
+        [TestMethod]
+        public void EmailErrorTest()
+        {
+            
+        }
+
+        [TestMethod]
+        public void PasswordErrorTest()
+        {
+            
+        }
+
+        [TestMethod]
+        public void SucessTest()
+        {
+           
+
+        }
+
     }
 }

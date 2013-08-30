@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using POCO;
 using DAL;
+using System.Text.RegularExpressions;
 
 namespace BL
 {
@@ -16,6 +17,15 @@ namespace BL
       {
         errors.Add("Email cannot be null");
       }
+
+      /*
+       * Do regular expressions here*/
+    Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+    Match match = regex.Match(email);
+    if (!match.Success)
+    {
+        errors.Add("Not a valid email address");
+    }
 
       if (password == null)
       {

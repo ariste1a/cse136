@@ -109,7 +109,7 @@ namespace DAL
             }
         }
 
-        public static Staff GetEnrollmentGrade(string student_id, string schedule_id, ref List<string> errors)
+        public static Enrollment GetEnrollmentGrade(string student_id, string schedule_id, ref List<string> errors)
         {
             SqlConnection conn = new SqlConnection(connection_string);
             Enrollment en = null;

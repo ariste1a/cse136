@@ -112,6 +112,43 @@ namespace DAL
                 conn = null;
             }
         }
+
+        public static void UpdateAdmin(Admin a, ref List<string> errors)
+        {
+            SqlConnection conn = new SqlConnection(connection_string);
+
+            try
+            {
+                string strSQL = "spUpdateAdminInfo";
+
+                SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
+                mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
+
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@admin_id", SqlDbType.VarChar, 20));
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50));
+                mySA.SelectCommand.Parameters.Add(new SqlParameter("@password", SqlDbType.VarChar, 50));
+
+                mySA.SelectCommand.Parameters["@admin_id"].Value = a.id;
+                mySA.SelectCommand.Parameters["@email"].Value = a.email;
+                mySA.SelectCommand.Parameters["@password"].Value = a.password;
+
+                DataSet myDS = new DataSet();
+                mySA.Fill(myDS);
+            }
+            catch (Exception e)
+            {
+                errors.Add("Error: " + e.ToString());
+            }
+            finally
+            {
+                conn.Dispose();
+                conn = null;
+            }
+        }
+
+
+
+
         //might want to return success code or not
   }    
 }

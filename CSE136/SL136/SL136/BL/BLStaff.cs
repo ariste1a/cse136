@@ -27,9 +27,9 @@ namespace BL
             DALStaff.DeleteStaff(id, ref err);
         }
 
-        public static void GetStaffDetails(string email, ref List<string> err)
+        public static Staff GetStaffDetails(string email, ref List<string> err)
         {
-            DALStaff.GetStaffDetail(email, ref err);
+            return DALStaff.GetStaffDetail(email, ref err);
         }
     }
 }

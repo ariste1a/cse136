@@ -49,6 +49,7 @@ namespace DALTest
         public void CRUDDiscussionsTest()
         {
             List<String> errors = new List<String>();
+            //need to redo this to pass in a discussion object instead. 
             string classid =DAL.DALDiscussion.createDiscussion(100, "A01", 1,1,1,50, ref errors);
             // Assert.IsTrue(classid!="0");
             // TestContext.WriteLine(classid);

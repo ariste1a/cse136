@@ -32,7 +32,9 @@ namespace BL
     {
         DALCourse.DeleteCourse(id, ref errors); 
     }
-
-
+    public static void UpdateCourse(Course course, List<string> errors)
+    {
+        DALCourse.UpdateCourse(course, ref errors);
+    }    
   }
 }

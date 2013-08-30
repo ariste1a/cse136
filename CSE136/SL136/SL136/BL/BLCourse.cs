@@ -14,7 +14,7 @@ namespace BL
     {
       return (DALCourse.GetCourseList());
     }
-    public static string InsertCourse(Course course, List<string> errors)
+    public static string InsertCourse(Course course, ref List<string> errors)
     {
         string id = DALCourse.InsertCourse(course, ref errors);
         if (id != null)
@@ -23,16 +23,16 @@ namespace BL
         }
         return "-1";
     }
-    public static Course GetCourse(string id, List<string> errors)
+    public static Course GetCourse(string id, ref List<string> errors)
     {
         Course course = DALCourse.GetCourse(id, ref errors);
         return course; 
     }
-    public static void DeleteCourse(string id, List<string> errors)
+    public static void DeleteCourse(string id, ref List<string> errors)
     {
         DALCourse.DeleteCourse(id, ref errors); 
     }
-    public static void UpdateCourse(Course course, List<string> errors)
+    public static void UpdateCourse(Course course, ref List<string> errors)
     {
         DALCourse.UpdateCourse(course, ref errors);
     }    

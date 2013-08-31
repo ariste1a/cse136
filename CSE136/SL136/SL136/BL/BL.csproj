@@ -57,7 +57,9 @@
     <Compile Include="Award\Resolver.cs" />
     <Compile Include="BLAuth.cs" />
     <Compile Include="BLCourse.cs" />
+    <Compile Include="BLEnrollment.cs" />
     <Compile Include="BLSchedule.cs" />
+    <Compile Include="BLStaff.cs" />
     <Compile Include="BLStudent.cs" />
     <Compile Include="BLDiscussion.cs" />
     <Compile Include="ErrorLog\AsynchLog.cs" />

@@ -92,6 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISLDiscussion.cs" />
+    <Compile Include="SLDiscussion.cs" />
     <Compile Include="ISLAuth.cs" />
     <Compile Include="ISLCourse.cs" />
     <Compile Include="ISLSchedule.cs" />

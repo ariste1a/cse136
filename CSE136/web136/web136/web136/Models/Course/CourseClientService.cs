@@ -13,7 +13,7 @@ namespace web136.Models.Course
 
       SLCourse.SLCourseClient client = new SLCourse.SLCourseClient();
       SLCourse.Course[] coursesLoaded = client.GetCourseList();
-
+      
       if (coursesLoaded != null)
       {
         foreach (SLCourse.Course s in coursesLoaded)

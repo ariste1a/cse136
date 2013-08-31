@@ -9,7 +9,7 @@ using BL;
 
 namespace SL136
 {
-    public class SLDiscussion
+    public class SLDiscussion:ISLDiscussion
     {
         public static List<Schedule> GetDiscussions(int class_id, ref List<string> errors)
         {

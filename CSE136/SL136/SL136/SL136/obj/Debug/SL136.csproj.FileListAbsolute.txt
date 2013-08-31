@@ -70,3 +70,6 @@ C:\Users\iteriani\Downloads\CSE136\SL136\SL136\SL136\bin\Debug\Microsoft.Owin.dl
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\SL136\bin\Debug\Microsoft.Owin.Security.dll
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\SL136\bin\Debug\Microsoft.Owin.xml
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\SL136\bin\Debug\Microsoft.Owin.Security.xml
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\SL136\obj\Debug\SL136.csprojResolveAssemblyReference.cache
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\SL136\obj\Debug\SL136.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\SL136\obj\Debug\SL136.pdb

@@ -18,3 +18,13 @@ C:\Users\iteriani\Downloads\CSE136\SL136\SL136\DALTest\bin\Debug\POCO.pdb
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\DALTest\obj\Debug\DALTest.csprojResolveAssemblyReference.cache
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\DALTest\obj\Debug\DALTest.dll
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\DALTest\obj\Debug\DALTest.pdb
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\bin\Debug\DALTest.dll.config
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\bin\Debug\DALTest.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\bin\Debug\DALTest.pdb
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\bin\Debug\DAL.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\bin\Debug\POCO.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\bin\Debug\DAL.pdb
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\bin\Debug\POCO.pdb
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\obj\Debug\DALTest.csprojResolveAssemblyReference.cache
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\obj\Debug\DALTest.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\DALTest\obj\Debug\DALTest.pdb

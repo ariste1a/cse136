@@ -13,6 +13,7 @@ namespace BL
     {
         public static string InsertEnrollment(Enrollment e, ref List<string> errors)
         {
+            //need to check here if there's enough space in the class. 
             string id = DALEnrollment.InsertEnrollment(e, ref errors);
             if (id != null)
             {

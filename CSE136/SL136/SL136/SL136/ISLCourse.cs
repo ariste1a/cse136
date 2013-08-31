@@ -14,5 +14,19 @@ namespace SL136
   {
     [OperationContract]
     List<Course> GetCourseList();
+
+    [OperationContract]
+    public static string InsertCourse(Course course, ref List<string> errors);
+
+    [OperationContract]
+    public static Course GetCourse(string id, ref List<string> errors);
+
+    [OperationContract]
+    public static void DeleteCourse(string id, ref List<string> errors);
+
+    [OperationContract]
+    public static void UpdateCourse(Course course, ref List<string> errors);
+
   }
+  
 }

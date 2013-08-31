@@ -16,5 +16,26 @@ namespace SL136
     {
       return BLCourse.GetCourseList();
     }
+
+    public static string InsertCourse(Course course, ref List<string> errors)
+    {
+      return BLCourse.InsertCourse(course, ref errors);
+    }
+
+    public static Course GetCourse(string id, ref List<string> errors)
+    {
+        Course course = BLCourse.GetCourse(id, ref errors);
+        return course;
+    }
+
+    public static void DeleteCourse(string id, ref List<string> errors)
+    {
+        BLCourse.DeleteCourse(id, ref errors);
+    }
+
+    public static void UpdateCourse(Course course, ref List<string> errors)
+    {
+        BLCourse.UpdateCourse(course, ref errors);
+    }
   }
 }

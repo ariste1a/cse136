@@ -12,23 +12,23 @@ namespace BL
     {
         public static string InsertAdmin(Admin a, ref List<string> errors)
         {
-            string ret_val = DALAdmin.InsertAdmin(a, errors);
+            string ret_val = DALAdmin.InsertAdmin(a, ref errors);
             return ret_val != null ? ret_val : "-1";
         }
 
-        public static void UpdateAdmin(Adming a, ref List<string> errors)
+        public static void UpdateAdmin(Admin a, ref List<string> errors)
         {
             DALAdmin.UpdateAdmin(a, ref errors);
         }
 
-        public static void DeleteAdmin(string id, ref List<string> errrors)
+        public static void DeleteAdmin(string id, ref List<string> errors)
         {
             DALAdmin.DeleteAdmin(id, ref errors);
         }
 
         public static Admin GetAdmin(string email, ref List<string> errors)
         {
-            return DALAdmin.GetAdmin(email, ref errors);
+            return DALAdmin.GetAdminDetail(email, ref errors);
         }
 
     }

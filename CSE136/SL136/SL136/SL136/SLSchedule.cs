@@ -44,7 +44,7 @@ namespace SL136
 
     public void DeleteSchedule(int id, ref List<string> errors)
     {
-        return BLSchedule.DeleteSchedule(id, ref errors);
+       BLSchedule.DeleteSchedule(id, ref errors);
     }
   }
 }

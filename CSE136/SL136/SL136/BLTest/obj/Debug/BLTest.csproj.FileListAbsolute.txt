@@ -36,12 +36,10 @@ C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\BL
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\BLTest.dll
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\BLTest.pdb
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\BL.dll
-C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\POCO.dll
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\Ninject.dll
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\Microsoft.Practices.Unity.dll
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\DAL.dll
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\BL.pdb
-C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\POCO.pdb
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\Ninject.pdb
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\Ninject.xml
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\Microsoft.Practices.Unity.xml
@@ -49,3 +47,5 @@ C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\DA
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\obj\Debug\BLTest.csprojResolveAssemblyReference.cache
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\obj\Debug\BLTest.dll
 C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\obj\Debug\BLTest.pdb
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\BLTest\bin\Debug\qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.pdb

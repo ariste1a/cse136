@@ -7,3 +7,8 @@ C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\bin\Debug\POCO.pdb
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\obj\Debug\POCO.dll
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\obj\Debug\POCO.pdb
 C:\Users\iteriani\Downloads\CSE136\SL136\SL136\POCO\obj\Debug\POCO.csprojResolveAssemblyReference.cache
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\POCO\bin\Debug\qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\POCO\bin\Debug\qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.pdb
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\POCO\obj\Debug\POCO.csprojResolveAssemblyReference.cache
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\POCO\obj\Debug\qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.dll
+C:\Users\jonathan\Documents\GitHub\cse136\CSE136\SL136\SL136\POCO\obj\Debug\qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq.pdb

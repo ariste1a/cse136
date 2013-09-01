@@ -13,7 +13,7 @@ namespace SL136
     {
         public static string InsertAdmin(Admin a, ref List<string> err)
         {
-            return BLAdmin.InserAdmin(a, ref err);
+            return BLAdmin.InsertAdmin(a, ref err);
         }
 
         public static void UpdateAdmin(Admin a, ref List<string> err)
@@ -28,7 +28,7 @@ namespace SL136
 
         public static void GetAdmin(string email, ref List<string> err)
         {
-            BLAdmin.GetADmin(email, err);
+            BLAdmin.GetAdmin(email, ref err);
         }
     }
 }

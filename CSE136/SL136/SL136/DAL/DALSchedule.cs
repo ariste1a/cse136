@@ -61,7 +61,7 @@ namespace DAL
         return true;
     }
 
-    public static Boolean deleteStudentSchedule(string student_id, string schedule_id)
+    public static Boolean deleteStudentSchedule(string student_id, string schedule_id, ref List<string> errors)
     {
         SqlConnection conn = new SqlConnection(connection_string);
         try
@@ -79,7 +79,7 @@ namespace DAL
         }
         catch (Exception e)
         {
-            Debug.WriteLine(e.ToString());
+            errors.Add("Error: " + e.ToString());
             return false;
         }
         conn.Dispose();
@@ -111,8 +111,8 @@ namespace DAL
             q = new Quota();
             q.schedule_id = myDS.Tables[0].Rows[0]["schedule_id"].ToString();
             q.course_title = myDS.Tables[0].Rows[0]["course_title"].ToString();
-            q.students_enrolled = myDS.Tables[0].Rows[0]["students_enrolled"].ToString();
-            q.max_students = myDS.Tables[0].Rows[0]["max_students"].ToString(); 
+            q.students_enrolled = Convert.ToInt32(myDS.Tables[0].Rows[0]["students_enrolled"].ToString());
+            q.max_students = Convert.ToInt32(myDS.Tables[0].Rows[0]["max_students"].ToString()); 
         }
         catch (Exception e)
         {
@@ -151,12 +151,12 @@ namespace DAL
         schedule.year = myDS.Tables[0].Rows[0]["year"].ToString();
         schedule.quarter = myDS.Tables[0].Rows[0]["quarter"].ToString();
         schedule.session = myDS.Tables[0].Rows[0]["session"].ToString();
-        schedule.quota = myDS.Tables[0].Rows[0]["quota"].ToString();
+        schedule.quota = Convert.ToInt32(myDS.Tables[0].Rows[0]["quota"].ToString());
         schedule.time = myDS.Tables[0].Rows[0]["schedule_time"].ToString();
         schedule.day = myDS.Tables[0].Rows[0]["schedule_day"].ToString();
         schedule.instructor = myDS.Tables[0].Rows[0]["instructor_id"].ToString();
         schedule.type = myDS.Tables[0].Rows[0]["type"].ToString();
-        schedule.enrollments = myDS.Tables[0].Rows[0]["enrollments"].ToString(); 
+        schedule.enrollments = Convert.ToInt32(myDS.Tables[0].Rows[0]["enrollments"].ToString()); 
         schedule.course =
           new Course
           {
@@ -334,11 +334,11 @@ namespace DAL
           schedule.year = myDS.Tables[0].Rows[i]["year"].ToString();
           schedule.quarter = myDS.Tables[0].Rows[i]["quarter"].ToString();
           schedule.session = myDS.Tables[0].Rows[i]["session"].ToString();
-          schedule.quota = myDS.Tables[0].Rows[i]["quota"].ToString();
+          schedule.quota = Convert.ToInt32(myDS.Tables[0].Rows[i]["quota"].ToString());
           schedule.time = myDS.Tables[0].Rows[i]["schedule_time"].ToString();
           schedule.day = myDS.Tables[0].Rows[i]["schedule_day"].ToString();
           schedule.type = myDS.Tables[0].Rows[i]["type"].ToString();
-          schedule.enrollments = myDS.Tables[0].Rows[i]["enrollments"].ToString(); 
+          schedule.enrollments = Convert.ToInt32(myDS.Tables[0].Rows[i]["enrollments"].ToString()); 
           schedule.course =
             new Course
             {

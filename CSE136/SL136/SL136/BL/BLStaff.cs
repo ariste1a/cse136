@@ -19,16 +19,35 @@ namespace BL
 
         public static void UpdateStaff(Staff s, ref List<string> err)
         {
+            if (s == null)
+            {
+                err.Add("Invalid Staff");
+            }
+            if (err.Count > 0)
+                return;
             DALStaff.UpdateStaff(s, ref err);
         }
 
         public static void DeleteStaff(string id, ref List<string> err)
         {
+            if (id == null)
+            {
+                err.Add("Invalid Staff ID");
+            }
+            if (err.Count > 0)
+                return;
+
             DALStaff.DeleteStaff(id, ref err);
         }
 
         public static Staff GetStaffDetails(string email, ref List<string> err)
         {
+            if (email == null)
+            {
+                err.Add("Invalid Staff ID");
+            }
+            if (err.Count > 0)
+                return null;
             return DALStaff.GetStaffDetail(email, ref err);
         }
     }

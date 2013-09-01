@@ -75,7 +75,7 @@ namespace DALTest
             schedule.quarter = "Spring";
             schedule.session = "A00";
             schedule.course = course;
-            schedule.quota = "45";
+            schedule.quota = 45;
             schedule.time = "1";
             schedule.instructor = "1";
             schedule.day = "1";

@@ -16,10 +16,10 @@ namespace POCO
         public string course_title { get; set; }
 
         [DataMember]
-        public string students_enrolled { get; set; }
+        public int students_enrolled { get; set; }
 
         [DataMember]
-        public string max_students { get; set; }
+        public int max_students { get; set; }
 
     }
 }

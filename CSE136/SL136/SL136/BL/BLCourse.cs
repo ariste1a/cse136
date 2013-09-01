@@ -27,18 +27,37 @@ namespace BL
 
     public static Course GetCourse(string id, ref List<string> errors)
     {
+        if (id == null)
+        {
+            errors.Add("Invalid Course ID"); 
+        }        
         Course course = DALCourse.GetCourse(id, ref errors);
+        if (errors.Count > 0)
+            return null;
         return course; 
     }
 
     public static void DeleteCourse(string id, ref List<string> errors)
-    {
-        DALCourse.DeleteCourse(id, ref errors); 
+    {           
+        DALCourse.DeleteCourse(id, ref errors);
+        if (errors.Count > 0)
+            return;
     }
 
     public static void UpdateCourse(Course course, ref List<string> errors)
     {
+        if (course == null)
+        {
+            errors.Add("course is invalid"); 
+        }
+        if(DALCourse.GetCourse(course.id, ref errors) == null)
+        {
+            errors.Add("Invalid course ID"); 
+        }
+
         DALCourse.UpdateCourse(course, ref errors);
+        if (errors.Count > 0)
+            return;
     }    
   }
 }

@@ -21,7 +21,7 @@ namespace DAL
                 string strSQL = "spGetDiscussions";
 
                 SqlDataAdapter mySA = new SqlDataAdapter(strSQL, conn);
-
+                //need to fix this, think if no arguments for class ID then get all instead?
                 mySA.SelectCommand.Parameters.Add(new SqlParameter("@class_id", SqlDbType.Int));
                 mySA.SelectCommand.Parameters["@class_id"].Value = class_id;
                 mySA.SelectCommand.CommandType = CommandType.StoredProcedure;
@@ -40,12 +40,12 @@ namespace DAL
                     schedule.year = myDS.Tables[0].Rows[i]["year"].ToString();
                     schedule.quarter = myDS.Tables[0].Rows[i]["quarter"].ToString();
                     schedule.session = myDS.Tables[0].Rows[i]["session"].ToString();
-                    schedule.quota = myDS.Tables[0].Rows[i]["quota"].ToString();
+                    schedule.quota = Convert.ToInt32(myDS.Tables[0].Rows[i]["quota"].ToString());
                     schedule.time = myDS.Tables[0].Rows[i]["schedule_time"].ToString();
                     schedule.day = myDS.Tables[0].Rows[i]["schedule_day"].ToString();
                     schedule.type = myDS.Tables[0].Rows[i]["type"].ToString();
                     schedule.instructor = myDS.Tables[0].Rows[i]["instructor_id"].ToString();
-                    schedule.enrollments = myDS.Tables[0].Rows[i]["enrollments"].ToString();
+                    schedule.enrollments =Convert.ToInt32(myDS.Tables[0].Rows[i]["enrollments"].ToString());
                     schedule.course =
                       new Course
                       {
@@ -65,6 +65,7 @@ namespace DAL
             }
         } // method
 
+        //lecture_id = schedule_id
         public static string createDiscussion(int lecture_id, string session, int day, int time, int instructor, int quota, ref List<String> errors)
         {
             string idval = "-1";

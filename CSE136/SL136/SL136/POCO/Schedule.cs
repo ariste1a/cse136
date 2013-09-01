@@ -25,10 +25,10 @@ namespace POCO
         public Course course { get; set; }
 
         [DataMember]
-        public string enrollments { get; set; }
+        public int enrollments { get; set; }
 
         [DataMember]
-        public string quota { get; set; }
+        public int quota { get; set; }
 
         [DataMember]
         public string time { get; set; }

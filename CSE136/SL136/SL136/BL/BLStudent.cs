@@ -94,16 +94,19 @@ namespace BL
 
     public static void DropEnrolledSchedule(string student_id, int schedule_id, ref List<string> errors)
     {
-      if (student_id == null)
+      Schedule schedule = DALSchedule.GetSchedule(schedule_id, ref errors);
+      Student student = DALStudent.GetStudentDetail(student_id, ref errors); 
+      if (student_id == null || student ==null)
       {
         errors.Add("Invalid student ID");
       }
-
+      if (schedule_id <= 0 || schedule == null)
+      {
+          errors.Add("Invalid schedule_id"); 
+      }            
       // anything else to validate?
-
       if (errors.Count > 0)
         return;
-
       DALStudent.DropEnrolledSchedule(student_id, schedule_id, ref errors);
     }
   }

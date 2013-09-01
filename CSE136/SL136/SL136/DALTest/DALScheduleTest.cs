@@ -74,7 +74,7 @@ namespace DALTest
             schedule.quarter = "Spring"; 
             schedule.session = "A00"; 
             schedule.course = course;             
-            schedule.quota = "45";
+            schedule.quota = 45;
             schedule.time = "1";             
             schedule.instructor = "1";
             schedule.day = "1";
@@ -101,7 +101,7 @@ namespace DALTest
             schedule.time = "2";
             schedule.year = "5";
             schedule.session = "B01";
-            schedule.quota = "100";
+            schedule.quota = 100;
             
             DALSchedule.UpdateSchedule(schedule, ref errors);
 

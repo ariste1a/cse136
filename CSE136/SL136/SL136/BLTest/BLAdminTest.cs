@@ -29,7 +29,7 @@ namespace BLTest
         }
 
         [TestMethod]
-        public void AdminErrorTest()
+        public void BLAdminErrorTest()
         {
             List<string> er = new List<string>();
 
@@ -38,14 +38,14 @@ namespace BLTest
         }
 
         [TestMethod]
-        public void AdminCRUDTest()
+        public void BLAdminCRUDTest()
         {
             Admin a = new Admin();
             a.id = Guid.NewGuid().ToString().Substring(0, 20);
             a.email = "pooplord@spiderman.com";
             a.password = "password";
 
-            List<string> errors = new List<string>(); 
+            List<string> errors = new List<string>();
 
             BLAdmin.InsertAdmin(a, ref errors);
 
@@ -55,7 +55,7 @@ namespace BLTest
 
             Assert.AreEqual(0, errors.Count);
 
-            Assert.AreEqual(a.id, fetchedAdmin.id); 
+            Assert.AreEqual(a.id, fetchedAdmin.id);
             Assert.AreEqual(a.email, fetchedAdmin.email);
             Assert.AreEqual(a.password, fetchedAdmin.password);
 
@@ -63,20 +63,21 @@ namespace BLTest
 
             BLAdmin.UpdateAdmin(a, ref errors);
 
-            Assert.AreEqual(0, errors.Count); 
+            Assert.AreEqual(0, errors.Count);
 
             fetchedAdmin = BLAdmin.GetAdmin(a.email, ref errors);
 
-            Assert.AreEqual(a.id, fetchedAdmin.id); 
+            Assert.AreEqual(a.id, fetchedAdmin.id);
             Assert.AreEqual(a.email, fetchedAdmin.email);
             Assert.AreEqual(a.password, fetchedAdmin.password);
 
-            BLAdmin.DeleteAdmin(a.id, ref errors); 
-            Assert.AreEqual(0, errors.Count); 
+            BLAdmin.DeleteAdmin(a.id, ref errors);
+            Assert.AreEqual(0, errors.Count);
 
             Admin nullAdmin = BLAdmin.GetAdmin(a.email, ref errors);
-            Assert.AreEqual(0, errors.Count); 
+            Assert.AreEqual(0, errors.Count);
 
-            Assert.AreEqual(null, nullAdmin); 
+            Assert.AreEqual(null, nullAdmin);
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace BLTest
         #endregion
 
         [TestMethod]
-        public void InsertStudentErrorTest()
+        public void BLStudentCRUDTest()
         {
             List<string> errors = new List<string>();
 

@@ -105,14 +105,15 @@ namespace DAL
             DataSet myDS = new DataSet();
             mySA.Fill(myDS);
 
+            //if there is no one enrolled, then the quota will return NO rows instead of enrollment = 0
             if (myDS.Tables[0].Rows.Count == 0)
                 return null;
 
             q = new Quota();
             q.schedule_id = myDS.Tables[0].Rows[0]["schedule_id"].ToString();
             q.course_title = myDS.Tables[0].Rows[0]["course_title"].ToString();
-            q.students_enrolled = Convert.ToInt32(myDS.Tables[0].Rows[0]["students_enrolled"].ToString());
-            q.max_students = Convert.ToInt32(myDS.Tables[0].Rows[0]["max_students"].ToString()); 
+            q.students_enrolled = Convert.ToInt32(myDS.Tables[0].Rows[0]["enrollment"].ToString());
+            q.max_students = Convert.ToInt32(myDS.Tables[0].Rows[0]["quota"].ToString()); 
         }
         catch (Exception e)
         {

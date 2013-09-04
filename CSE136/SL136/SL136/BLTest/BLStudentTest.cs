@@ -60,7 +60,7 @@ namespace BLTest
     #endregion
 
     [TestMethod]
-    public void InsertStudentErrorTest()
+    public void BLInsertStudentErrorTest()
     {
       List<string> errors = new List<string>();
 
@@ -76,7 +76,7 @@ namespace BLTest
     }
 
     [TestMethod]
-    public void StudentErrorTest()
+    public void BLStudentErrorTest()
     {
       List<string> errors = new List<string>();
 
@@ -85,7 +85,7 @@ namespace BLTest
     }
 
     [TestMethod]
-    public void DeleteStudentErrorTest()
+    public void BLDeleteStudentErrorTest()
     {
       List<string> errors = new List<string>();
 
@@ -94,7 +94,7 @@ namespace BLTest
     }
 
     [TestMethod]
-    public void StudentInsertAndSelectTest()
+    public void BLStudentInsertAndSelectTest()
     {
       Student student = new Student();
       student.first_name = "first";

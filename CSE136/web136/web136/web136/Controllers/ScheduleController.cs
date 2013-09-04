@@ -13,6 +13,7 @@ namespace web136.Controllers
   {
     //
     // GET: /Schedule/
+    [HttpGet]
     public ActionResult Index(string yearFilter, string quarterFilter)
     {
       if (yearFilter == null)
@@ -93,5 +94,25 @@ namespace web136.Controllers
       return Json(scheduleList);
     }
 
+    public ActionResult GetDiscussions(int id)
+    {
+        
+        if (id <= 0 )
+            id = 0;
+        List<PLSchedule> discussionsList = ScheduleClientService.GetDiscussionList(id);
+        JavaScriptSerializer jsonSerialiser = new JavaScriptSerializer();
+        string discussionListJson = jsonSerialiser.Serialize(discussionsList);
+        return Content(discussionListJson);   
+    }
+
+    public ActionResult GetScheduleQuota(string id)
+    {
+        if (id == null)
+            return null;
+        PLQuota quota = ScheduleClientService.GetScheduleQuota(id);
+        JavaScriptSerializer jsonSerialiser = new JavaScriptSerializer();
+        string discussionListJson = jsonSerialiser.Serialize(quota);
+        return Content(discussionListJson);
+    }
   }
 }

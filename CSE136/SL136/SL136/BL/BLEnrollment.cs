@@ -40,6 +40,7 @@ namespace BL
             }
             if (errors.Count > 0)
                 return null;
+
             return DALEnrollment.GetEnrollmentGrade(student_id, schedule_id, ref errors);
         }
 

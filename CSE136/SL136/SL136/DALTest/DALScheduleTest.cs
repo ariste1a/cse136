@@ -102,6 +102,9 @@ namespace DALTest
             schedule.year = "5";
             schedule.session = "B01";
             schedule.quota = 100;
+
+            Quota quota = DALSchedule.GetQuota("100", ref errors);
+            Assert.AreEqual(quota.max_students, 5);
             
             DALSchedule.UpdateSchedule(schedule, ref errors);
 

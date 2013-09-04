@@ -9,7 +9,7 @@ using DAL;
 
 namespace BL
 {
-    class BLStaff
+    public class BLStaff
     {
         public static string InsertStaff(Staff s, ref List<string> err)
         {
@@ -50,5 +50,6 @@ namespace BL
                 return null;
             return DALStaff.GetStaffDetail(email, ref err);
         }
+      
     }
 }

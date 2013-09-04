@@ -32,7 +32,7 @@ namespace BLTest
         }
 
         [TestMethod]
-        public void InsertCourseErrorTest()
+        public void BLInsertCourseErrorTest()
         {
             List<string> errors = new List<string>();
 
@@ -48,7 +48,7 @@ namespace BLTest
         }
 
         [TestMethod]
-        public void CourseCRUDTest()
+        public void BLCourseCRUDTest()
         {
             Course c = new Course();
             c.id = Guid.NewGuid().ToString().Substring(0, 20);

@@ -19,13 +19,13 @@ namespace BL
       }
 
       /*
-       * Do regular expressions here*/
+       * Do regular expressions here
     Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
     Match match = regex.Match(email);
     if (!match.Success)
     {
         errors.Add("Not a valid email address");
-    }
+    }*/ 
 
       if (password == null)
       {

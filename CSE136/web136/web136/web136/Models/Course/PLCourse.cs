@@ -20,5 +20,6 @@ namespace web136.Models.Course
       [Required]
       [DisplayName("Description")]
       public string description { get; set; }
+
   }
 }

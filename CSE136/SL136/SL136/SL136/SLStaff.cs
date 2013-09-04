@@ -16,19 +16,19 @@ namespace SL136
             return BLStaff.InsertStaff(s, ref err);
         }
 
-        public static string UpdateStaff(Staff s, ref List<string> err)
+        public static void UpdateStaff(Staff s, ref List<string> err)
         {
-            return BLStaff.UpdateStaff(s, ref err);
+            BLStaff.UpdateStaff(s, ref err);
         }
 
-        public static string DeleteStaff(string id, ref List<string> err)
+        public static void DeleteStaff(string id, ref List<string> err)
         {
-            return BLStaff.DeleteStaff(id, ref err);
+            BLStaff.DeleteStaff(id, ref err);
         }
 
         public static Staff GetStaffDetails(string email, ref List<string> err)
         {
-            return BLStaff.GetStaffDetails(email, ref err)
+            return BLStaff.GetStaffDetails(email, ref err);
         }
     }
 }

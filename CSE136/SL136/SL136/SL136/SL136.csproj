@@ -92,8 +92,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISLDiscussion.cs" />
-    <Compile Include="SLDiscussion.cs" />
+    <Compile Include="ISLEnrollment.cs" />
+    <Compile Include="ISLAdmin.cs" />
+    <Compile Include="SLAdmin.cs" />
     <Compile Include="ISLAuth.cs" />
     <Compile Include="ISLCourse.cs" />
     <Compile Include="ISLSchedule.cs" />
@@ -101,7 +102,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SLAuth.cs" />
     <Compile Include="SLCourse.cs" />
+    <Compile Include="SLEnrollment.cs" />
     <Compile Include="SLSchedule.cs" />
+    <Compile Include="SLStaff.cs" />
     <Compile Include="SLStudent.cs" />
   </ItemGroup>
   <ItemGroup>

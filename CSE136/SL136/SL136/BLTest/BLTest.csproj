@@ -52,8 +52,12 @@
   <ItemGroup>
     <Compile Include="BLAdminTest.cs" />
     <Compile Include="BLCourseTest.cs" />
+    <Compile Include="BLEnrollmentTest.cs" />
+    <Compile Include="BLStaffTest.cs" />
     <Compile Include="BLStudentTest.cs" />
     <Compile Include="BLAuthTest.cs" />
+    <Compile Include="BLScheduleTest.cs" />
+    <Compile Include="BLDiscussionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

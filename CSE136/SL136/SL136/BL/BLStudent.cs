@@ -77,22 +77,28 @@ namespace BL
       return DALStudent.GetStudentList(ref errors);
     }
 
-    public static void EnrollSchedule(string student_id, int schedule_id, ref List<string> errors)
+    public static int EnrollSchedule(string student_id, int schedule_id, ref List<string> errors)
     {
       if (student_id == null)
       {
         errors.Add("Invalid student ID");
       }
 
+      Schedule schedule = DALSchedule.GetSchedule(schedule_id, ref errors);
+      Quota quota = DALSchedule.GetQuota(schedule_id.ToString(), ref errors);
+      if (quota != null && quota.students_enrolled >= quota.max_students)
+          return -1; 
       // anything else to validate?
 
       if (errors.Count > 0)
-        return;
+          return -1; 
 
       DALStudent.EnrollSchedule(student_id, schedule_id, ref errors);
+      quota = DALSchedule.GetQuota(schedule_id.ToString(), ref errors);
+      return quota.students_enrolled;
     }
 
-    public static void DropEnrolledSchedule(string student_id, int schedule_id, ref List<string> errors)
+    public static int DropEnrolledSchedule(string student_id, int schedule_id, ref List<string> errors)
     {
       Schedule schedule = DALSchedule.GetSchedule(schedule_id, ref errors);
       Student student = DALStudent.GetStudentDetail(student_id, ref errors); 
@@ -106,8 +112,15 @@ namespace BL
       }            
       // anything else to validate?
       if (errors.Count > 0)
-        return;
-      DALStudent.DropEnrolledSchedule(student_id, schedule_id, ref errors);
+          return -1; 
+
+      DALStudent.DropEnrolledSchedule(student_id, schedule_id, ref errors);      
+      Quota quota = DALSchedule.GetQuota(schedule_id.ToString(), ref errors);
+      if (quota != null)
+      {
+          return quota.students_enrolled;
+      }
+      return 0;
     }
   }
 }

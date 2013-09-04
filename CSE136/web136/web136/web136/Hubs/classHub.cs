@@ -28,5 +28,10 @@ namespace web136.Hubs
             StudentClientService.Drop(student_id, schedule_id);
             Clients.All.getMessage(student_id + " has dropped " + schedule_id);
         }
+        /*
+        public void addSchedule()
+        {
+        }
+            */
     }
 }

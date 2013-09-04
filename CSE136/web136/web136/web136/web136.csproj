@@ -164,6 +164,7 @@
     <Compile Include="Models\Course\PLCourse.cs" />
     <Compile Include="Models\Logon\LogonClientService.cs" />
     <Compile Include="Models\Logon\PLLogon.cs" />
+    <Compile Include="Models\Schedule\PLQuota.cs" />
     <Compile Include="Models\Schedule\PLSchedule.cs" />
     <Compile Include="Models\Schedule\ScheduleClientService.cs" />
     <Compile Include="Models\Student\PLStudent.cs" />
@@ -616,8 +617,23 @@
     <None Include="Service References\SLCourse\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\SLCourse\SLCourse.wsdl" />
+    <None Include="Service References\SLCourse\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SLCourse\SLCourse.wsdl" />
     <Content Include="Service References\SLCourse\web136.SLCourse.Course.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLCourse\web136.SLCourse.DeleteCourseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLCourse\web136.SLCourse.GetCourseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLCourse\web136.SLCourse.InsertCourseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLCourse\web136.SLCourse.UpdateCourseResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <None Include="Service References\SLSchedule\item.disco" />
@@ -627,6 +643,36 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.DeleteScheduleResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.DeleteStudentScheduleResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.GetQuotaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.GetScheduleResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.InsertScheduleResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.Quota.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.UpdateScheduleResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.createDiscussionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.GetDiscussionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SLSchedule\web136.SLSchedule.removeDiscussionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\SLStudent\item.disco" />
     <None Include="Service References\SLStudent\configuration91.svcinfo" />
     <None Include="Service References\SLStudent\configuration.svcinfo" />
@@ -634,13 +680,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\SLCourse\item.disco" />
-    <Content Include="Service References\SLCourse\configuration91.svcinfo" />
-    <Content Include="Service References\SLCourse\configuration.svcinfo" />
-    <Content Include="Service References\SLCourse\Reference.svcmap">
+    <None Include="Service References\SLCourse\item.disco" />
+    <None Include="Service References\SLCourse\configuration91.svcinfo" />
+    <None Include="Service References\SLCourse\configuration.svcinfo" />
+    <None Include="Service References\SLCourse\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -743,6 +789,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Admin\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

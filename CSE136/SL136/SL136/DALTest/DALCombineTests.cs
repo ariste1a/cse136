@@ -75,7 +75,7 @@ namespace DALTest
             schedule.quarter = "Spring";
             schedule.session = "A00";
             schedule.course = course;
-            schedule.quota = 45;
+            schedule.quota = 5;
             schedule.time = "1";
             schedule.instructor = "1";
             schedule.day = "1";
@@ -92,7 +92,7 @@ namespace DALTest
             Assert.AreEqual(schedule.course.id, verifySchedule.course.id);
 
             
-            string classid = DAL.DALDiscussion.createDiscussion(schedule.id, "A00", 1, 1, 1, 50, ref errors);
+            string classid = DAL.DALDiscussion.createDiscussion(schedule.id, "A00", 1, 1, 1, 1, ref errors);
             Assert.IsTrue(errors.Count == 0);
             List<Schedule> discussions = DAL.DALDiscussion.GetDiscussions(schedule.id, ref errors);
             Boolean check = false;

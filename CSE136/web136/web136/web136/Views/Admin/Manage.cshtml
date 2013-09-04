@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Manage";
+}
+<style>
+    td {
+       padding-right:50px;
+    }
+</style>
+<h2>Manage</h2>
+<table class="table table-striped">
+    <tbody data-bind="foreach: schedule">
+        <tr>
+             <td data-bind="text : course_title"></td>
+             <td data-bind="text: course_description"></td>
+             <td data-bind="text: session"></td>
+             <td data-bind="text: day"></td>
+             <td data-bind="text: time"></td>
+             <td><span data-bind="text: enrollment"></span>/<span data-bind="text : quota"></span></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    console.log($.connection);
+    $(document).ready(function (){
+
+        var promise = new jQuery.Deferred();
+        $.get('/Schedule/getScheduleList')
+            .done(function (data) { promise.resolve(JSON.parse(data)) })
+            .fail(function (data) { promise.reject(data); });
+
+        promise.done(function (data) {
+            var Schedule = function () {
+                this.schedule = data;
+
+                }
+                var viewModel = new Schedule();
+                ko.applyBindings(viewModel);
+                console.log(Object.keys(data[0]));
+            });
+
+
+    });
+</script>

@@ -35,7 +35,11 @@ namespace web136.Models.Schedule
 
     [Required]
     [DisplayName("Quota")]
-    public string quota { get; set; }
+    public int quota { get; set; }
+
+    [Required]
+    [DisplayName("Enrollment")]
+    public int enrollment { get; set; }
 
     [Required]
     [DisplayName("Schedule Day")]

@@ -46,5 +46,18 @@ namespace SL136
     {
        BLSchedule.DeleteSchedule(id, ref errors);
     }
+
+    public List<Schedule> GetDiscussions(int class_id, ref List<string> errors)
+    {
+        return BLDiscussion.GetDiscussions(class_id, ref errors);
+    }
+    public string createDiscussion(int lecture_id, string session, int day, int time, int instructor, int quota, ref List<String> errors)
+    {
+        return BLDiscussion.createDiscussion(lecture_id, session, day, time, instructor, quota, ref errors);
+    }
+    public Boolean removeDiscussion(string discussion_id, ref List<String> errors)
+    {
+        return BLDiscussion.removeDiscussion(discussion_id, ref errors);
+    }
   }
 }

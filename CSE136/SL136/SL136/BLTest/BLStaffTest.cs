@@ -27,12 +27,12 @@ namespace BLTest
         {
             List<string> er = new List<string>();
 
-            BLStaff.GetStaff(null, ref er);
+            BLStaff.GetStaffDetails(null, ref er);
             Assert.AreEqual(1, er.Count);
         }
 
         [TestMethod]
-        public void BLAdminCRUDTest()
+        public void BLStaffCRUDTest()
         {
             Staff s = new Staff();
             s.id = Guid.NewGuid().ToString().Substring(0, 20);
@@ -45,7 +45,7 @@ namespace BLTest
 
             Assert.AreEqual(0, errors.Count);
 
-            Admin fetchedStaff = BLStaff.GetStaff(s.email, ref errors);
+            Staff fetchedStaff = BLStaff.GetStaffDetails(s.email, ref errors);
 
             Assert.AreEqual(0, errors.Count);
 
@@ -55,11 +55,11 @@ namespace BLTest
 
             s.password = "banana";
 
-            BLStaff.UpdatStaff(s, ref errors);
+            BLStaff.UpdateStaff(s, ref errors);
 
             Assert.AreEqual(0, errors.Count);
 
-            fetchedStaff = BLStaff.GetStaff(s.email, ref errors);
+            fetchedStaff = BLStaff.GetStaffDetails(s.email, ref errors);
 
             Assert.AreEqual(s.id, fetchedStaff.id);
             Assert.AreEqual(s.email, fetchedStaff.email);
@@ -68,7 +68,7 @@ namespace BLTest
             BLStaff.DeleteStaff(s.id, ref errors);
             Assert.AreEqual(0, errors.Count);
 
-            Staff nullStaff = BLStaff.GetStaff(s.email, ref errors);
+            Staff nullStaff = BLStaff.GetStaffDetails(s.email, ref errors);
             Assert.AreEqual(0, errors.Count);
 
             Assert.AreEqual(null, nullStaff);

@@ -29,39 +29,33 @@ namespace BL
             }
             Schedule course_instance = DALSchedule.GetSchedule(lecture_id, ref errors);
             //get all dicussions for this particular lecture
-            List<Schedule> dicussions = DALDiscussion.GetDiscussions(Convert.ToInt32(course_instance.course.id), ref errors);
+            List<Schedule> discussions = DALDiscussion.GetDiscussions(lecture_id, ref errors);
             //adds up each dicussion's quota
-            foreach (Schedule di in dicussions)
+            if (discussions != null)
             {
-                diTotalQuota += di.quota;
+                foreach (Schedule di in discussions)
+                {
+                    diTotalQuota += di.quota;
+                }
             }
-
             //check if this dicussion would violate class size 
             if (quota + diTotalQuota > course_instance.quota)
             {
-                errors.Add("Discussion class size greater than Lecture class size");
-                return "-1";
+                errors.Add("Discussion class size greater than Lecture class size");                
             }
-
-            string id = createDiscussion(lecture_id, session, day, time, instructor, quota, ref errors);
             if (errors.Count > 0)
                 return null;
+            string id = DALDiscussion.createDiscussion(lecture_id, session, day, time, instructor, quota, ref errors);            
             return id; 
         }
 
         public static Boolean removeDiscussion(string discussion_id, ref List<String> errors)
         {
-            if (DALDiscussion.GetDiscussions(Convert.ToInt32(discussion_id), ref errors).Count <= 0 )
-            {
-                errors.Add("Invalid Discussion ID"); 
-            }
             if (discussion_id == null)
             {
                 errors.Add("Invalid Discussion ID");
             }
-            if (errors.Count > 0)
-                return false;
-            return removeDiscussion( discussion_id, ref errors);
+            return DALDiscussion.removeDiscussion(discussion_id, ref errors);
         }
     }
 }

@@ -21,5 +21,8 @@ namespace web136.Models.Course
       [DisplayName("Description")]
       public string description { get; set; }
 
+      [Required]
+      [DisplayName("Level")]
+      public string level { get; set; }
   }
 }

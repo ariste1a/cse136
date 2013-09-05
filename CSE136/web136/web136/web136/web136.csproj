@@ -790,6 +790,7 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Admin\Manage.cshtml" />
+    <Content Include="Views\Admin\MakeCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

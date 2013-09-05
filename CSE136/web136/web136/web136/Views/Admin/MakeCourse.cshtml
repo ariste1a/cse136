@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "MakeCourse";
+}
+
+<h2>MakeCourse</h2>
+<style type="text/css">
+    body {
+        background-color: red;
+    }
+</style>
+<form> 
+    <input placeholder="Title" type="text" id="title" name ="title"/>
+    <input placeholder="Description" type="text" id="desecription" name ="description" />
+</form>
+
+<script>
+   $.post("/Course/Insert/")
+
+</script>

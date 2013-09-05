@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Manage Courses";
 }
 <style>
     td {
@@ -10,6 +10,7 @@
 <table class="table table-striped">
     <tbody data-bind="foreach: schedule">
         <tr>
+             <td data-bind="text: schedule_id"></td>
              <td data-bind="text : course_title"></td>
              <td data-bind="text: course_description"></td>
              <td data-bind="text: session"></td>
@@ -19,6 +20,11 @@
         </tr>
     </tbody>
 </table>
+<form id="course"> 
+    <input placeholder="Title" type="text" id="title" name ="title"/>
+    <input placeholder="Description" type="text" id="desecription" name ="description" />
+    <button id="submitCourse"> Submit</button>
+</form>
 
 <script>
     console.log($.connection);
@@ -38,7 +44,18 @@
                 ko.applyBindings(viewModel);
                 console.log(Object.keys(data[0]));
             });
-
-
     });
+    function showDiscussions() { };       
+    $('#submitCourse').click(function () {
+        var serialized = $("#course").serialize();
+        alert(serialized);
+            $.ajax({
+                type: "POST",
+                url: "/Course/InsertCourse/",
+                data: serialized,
+                success: function (msg) {
+                    alert("Form Submitted: " + msg);
+                }
+            });
+        });    
 </script>

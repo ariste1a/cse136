@@ -5,7 +5,7 @@ using System.Web;
 
 namespace web136.Models.Course
 {
-  public class CourseClientService
+  public static class CourseClientService
   {
     public static List<PLCourse> GetCourseList()
     {
@@ -35,5 +35,30 @@ namespace web136.Models.Course
 
       return myCourse;
     }
+
+    private static SLCourse.Course PL_to_DTO(PLCourse p)
+    {
+        SLCourse.Course c = new SLCourse.Course();
+        c.description = p.description;
+        c.title = p.title;
+
+        return c; 
+    } 
+
+
+    public static void InsertCourse(PLCourse p)
+    {
+        //SLCourse.SLCourseClient client = new SLCourse.SLCourseClient();
+        String[] errors = new string[0];
+      
+        SLCourse.Course course = PL_to_DTO(p);
+        course.title = "asdf";
+        course.description = "asdf";
+        course.level = SLCourse.CourseLevel.lower;        
+
+        SLCourse.ISLCourse client = new SLCourse.SLCourseClient();        
+        SLCourse.InsertCourseRequest request = new SLCourse.InsertCourseRequest(course, errors);
+        client.InsertCourse(request);
+    }  
   }
 }

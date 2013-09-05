@@ -28,6 +28,11 @@ namespace web136.Controllers
         return View();
     }
 
+    public ActionResult MakeCourse()
+    {
+        return View();
+    }
+
     // Get /Admin/GetAdminInfo -- call by AdminModel.js through ajax
     public string GetAdminInfo(string AdminId)
     {

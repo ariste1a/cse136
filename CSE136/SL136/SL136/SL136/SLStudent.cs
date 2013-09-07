@@ -37,6 +37,11 @@ namespace SL136
       return BLStudent.GetStudentList(ref errors);
     }
 
+    public List<string> GetStudentSchedule(string student_id, ref List<string> errors)
+    {
+        return BLStudent.GetStudentSchedule(student_id, ref errors);
+    }
+
     public int EnrollSchedule(string student_id, int schedule_id, ref List<string> errors)
     { 
       return BLStudent.EnrollSchedule(student_id, schedule_id, ref errors);

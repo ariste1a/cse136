@@ -28,6 +28,20 @@ namespace web136.Models.Student
       return studentList;
     }
 
+    public static List<string> GetStudentSchedule(string student_id)
+    {
+        string[] schedule_ids = new string[0]; 
+
+        SLStudent.ISLStudent client = new SLStudent.SLStudentClient();
+
+        string[] errors = new string[0];
+        SLStudent.GetStudentScheduleRequest request = new SLStudent.GetStudentScheduleRequest(student_id, errors);
+        SLStudent.GetStudentScheduleResponse response = client.GetStudentSchedule(request);
+        schedule_ids = response.GetStudentScheduleResult;
+
+        return schedule_ids.ToList();
+    }
+
     /// <summary>
     /// create a new student
     /// </summary>
@@ -73,6 +87,8 @@ namespace web136.Models.Student
       // this is the data transfer object code...
       return DTO_to_PL(newStudent);
     }
+
+
 
     /// <summary>
     /// call service layer's delete student method
@@ -142,6 +158,7 @@ namespace web136.Models.Student
       }
       return PLStudent;
     }
+
 
     /// <summary>
     /// this is data transfer object for student.

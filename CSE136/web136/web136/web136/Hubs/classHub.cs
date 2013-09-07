@@ -64,5 +64,10 @@ namespace web136.Hubs
             Clients.All.enroll(student_id, schedule_id);
         }
 
+        public List<string> getStudentSchedule(string student_id)
+        {
+            return StudentClientService.GetStudentSchedule(student_id);
+        }
+
     }
 }

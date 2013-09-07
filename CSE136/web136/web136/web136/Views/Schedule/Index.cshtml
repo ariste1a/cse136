@@ -7,6 +7,16 @@
        padding-right:50px;
     }
 </style>
+
+<h2>Your current Courses</h2>
+
+<table class="table"> 
+
+</table>
+
+
+
+
 <h2>Enroll in a Course!</h2>
 <div style="padding-bottom: 10px"><strong> A schedule is an instance of a class.</strong> 
     <p>List of schedules for the year 2014</p>
@@ -62,12 +72,23 @@
             }
         }
 
+<<<<<<< HEAD
         var student_id = "@Session["id"]"; 
+=======
+        var student_id = "@Session["id"]";
+
+        var studentSchedules = function () {
+            $.get('/Student/GetStudentSchedule', student_id)
+        }
+        console.log(student_id);
+>>>>>>> 8a2070e847be85d874cc56983afa32c23fb1c0c8
 
         var promise = new jQuery.Deferred();
         $.get('/Schedule/getScheduleList')
             .done(function (data) { promise.resolve(JSON.parse(data)) })
             .fail(function (data) { promise.reject(data); });
+
+
 
         promise.done(function (data) {
             var Schedule = function () {
@@ -111,6 +132,7 @@
 
             viewModel.title = ko.observable("");
             viewModel.description = ko.observable("");
+            viewModel.student_schedules = ko.observableArray(studentSchedules); 
             Course.getCourses().done(function (data) {                
                 data = JSON.parse(data);
                 //console.log(data);

@@ -72,23 +72,25 @@
             }
         }
 
-<<<<<<< HEAD
-        var student_id = "@Session["id"]"; 
-=======
         var student_id = "@Session["id"]";
 
-        var studentSchedules = function () {
-            $.get('/Student/GetStudentSchedule', student_id)
+        var studentSchedule = {
+            getStudentSchedules: function () {
+                return $.get('/Student/GetStudentSchedule/' + student_id);
+            }
         }
         console.log(student_id);
->>>>>>> 8a2070e847be85d874cc56983afa32c23fb1c0c8
+        //test to see if the get returns what i needs to do.         
+        //var studentScheduleIds = []; 
+        //studentSchedule.getStudentSchedules().done(function (data) { console.log(data); studentScheduleIds = JSON.parse(data); });
+        //console.log(studentScheduleIds);
+
+
 
         var promise = new jQuery.Deferred();
         $.get('/Schedule/getScheduleList')
             .done(function (data) { promise.resolve(JSON.parse(data)) })
             .fail(function (data) { promise.reject(data); });
-
-
 
         promise.done(function (data) {
             var Schedule = function () {
@@ -103,7 +105,7 @@
                         var schedule = this;
                         if (schedule.loaded == true)
                             return;                     
-                        console.log(schedule);
+                        //console.log(schedule);
                         $.get('/Schedule/GetDiscussions/' + this.schedule_id).done(function (data) {
                             data = JSON.parse(data);
                             schedule.loaded = true;
@@ -129,15 +131,16 @@
                 this.time = time; 
             }; 
             var viewModel = new Schedule();
-
+            
             viewModel.title = ko.observable("");
             viewModel.description = ko.observable("");
-            viewModel.student_schedules = ko.observableArray(studentSchedules); 
+           
+            //get the courses and bind them 
             Course.getCourses().done(function (data) {                
                 data = JSON.parse(data);
                 //console.log(data);
                 viewModel.courses = ko.observableArray(data);
-                console.log(ko.utils.unwrapObservable(viewModel.courses));               
+                //console.log(ko.utils.unwrapObservable(viewModel.courses));               
                 viewModel.selectedCourse = ko.observable();                
                 viewModel.dayTime = ko.observableArray([
                         new day(1, "Mon/Wed"),
@@ -169,23 +172,35 @@
                         new time(22, "8pm-9pm"), 
                         new time(23, "8pm-9:30pm")]);
                 viewModel.selectedTime = ko.observable(); 
-                viewModel.selectedDay = ko.observable(); 
+                viewModel.selectedDay = ko.observable();
+
+
                 ko.applyBindings(viewModel);
 
-                promise.done(function () {
-                    $('#createSchedule').click(function () {
-                        /*classHub.server.addSchedule(
-                                                      ko.utils.unwrapObservable(viewModel.selectedCourse.id),
-                                                      ko.utils.unwrapObservable(viewModel.dayTime.id), 
-                                                      ko.utils.unwrapObservable(viewModel*/
-                        var year = "2014";
-                        var quota = 5;
-                        var type = "LE";
-                        var quarter = "spring";
-                        var instructor_id = 1; 
-                        alert([ko.utils.unwrapObservable(viewModel.selectedCourse().id), ko.utils.unwrapObservable(viewModel.selectedDay().id),ko.utils.unwrapObservable(viewModel.selectedTime().id)]);
-                    });
+            });
+
+            promise.done(function () {
+                $('#createSchedule').click(function () {
+                    /*classHub.server.addSchedule(
+                                                  ko.utils.unwrapObservable(viewModel.selectedCourse.id),
+                                                  ko.utils.unwrapObservable(viewModel.dayTime.id), 
+                                                  ko.utils.unwrapObservable(viewModel*/
+                    var year = "2014";
+                    var quota = 5;
+                    var type = "LE";
+                    var quarter = "spring";
+                    var instructor_id = 1;
+                    alert([ko.utils.unwrapObservable(viewModel.selectedCourse().id), ko.utils.unwrapObservable(viewModel.selectedDay().id), ko.utils.unwrapObservable(viewModel.selectedTime().id)]);
                 });
+            });
+
+            //get the schedules of this current student and bind them 
+            studentSchedule.getStudentSchedules().done(function (data)
+            {
+                console.log(data);
+                studentScheduleIds = JSON.parse(data);
+                //viewModel.courses = ko.observableArray(studentScheduleIds);
+
             });
 
             //classHub.server.addCourse(ko.unwrapObservable(viewModel.title), ko.unwrap(viewModel.description));=

@@ -21,8 +21,8 @@
              <td data-bind="text: day"></td>
              <td data-bind="text: time"></td>
              <td><span data-bind="text: enrollment"></span>/<span data-bind="text : quota"></span></td>
-            <td> <a data-bind="click: showDiscussions"> View Discussions </a></td>
-            <td> <a> Remove</a></td>
+             <td> <a data-bind="click: showDiscussions"> View Discussions </a></td>
+             <td> <a data-bind="click: remove"> Remove </a></td>
         </tr>
         <tr data-bind="foreach : discussions ">
              <td data-bind="text: schedule_id"></td>
@@ -31,7 +31,7 @@
              <td data-bind="text: session"></td>
              <td data-bind="text: day"></td>
              <td data-bind="text: time"></td>
-             <td><span data-bind="text: enrollment"></span>/<span data-bind="    text: quota"></span></td>
+             <td><span data-bind="text: enrollment"></span>/<span data-bind="text: quota"></span></td>
         </tr>
     </tbody>
 
@@ -45,13 +45,18 @@
         <div>
             <select data-bind="options : courses, optionsText : 'title' , value : selectedCourse"></select>
             <select data-bind="options : dayTime, optionsText: 'day', value: selectedDay"></select>
+            <select data-bind="options:  time, optionsText: 'time', value: selectedTime"></select>
             <div data-bind="visible: selectedCourse"> <!-- Appears when you select something -->
             You have chosen course
             <span style="font-weight: bold" data-bind="text: selectedCourse() ? selectedCourse().title : 'unknown'"> </span> 
             <span style="font-weight: bold"  data-bind="text: selectedCourse() ? selectedCourse().description : 'unknown'"></span> 
                 on
-            <span style="font-weight: bold" data-bind="text: selectedDay() ? selectedDay().day : 'Day(s)'"></span>. 
+            <span style="font-weight: bold" data-bind="text: selectedDay() ? selectedDay().day : 'Day(s)'"></span> 
+                at
+            <span style="font-weight: bold" data-bind="text: selectedTime() ? selectedTime().time : 'Day(s)'"></span>. 
             </div>      
+
+            <button id="createSchedule"> Submit Schedule</button>
         </div>
 <script>
     //console.log($.connection);
@@ -90,8 +95,7 @@
                     this.schedule[i].showDiscussions = function () {
                         var schedule = this;
                         if (schedule.loaded == true)
-                            return;
-
+                            return;                     
                         console.log(schedule);
                         $.get('/Schedule/GetDiscussions/' + this.schedule_id).done(function (data) {
                             data = JSON.parse(data);
@@ -102,6 +106,9 @@
                             }
                         });
                     }
+                    this.schedule[i].remove = function () {                        
+                        alert(this.schedule_id);
+                    }
                 }
             }
 
@@ -110,6 +117,10 @@
                 this.id = id;
                 this.day = day;
             };
+            var time = function(id, time){
+                this.id = id; 
+                this.time = time; 
+            }; 
             var viewModel = new Schedule();
 
             viewModel.title = ko.observable("");
@@ -121,13 +132,52 @@
                 console.log(ko.utils.unwrapObservable(viewModel.courses));               
                 viewModel.selectedCourse = ko.observable();                
                 viewModel.dayTime = ko.observableArray([
-                          new day(1, "Mon/Wed"),
-                          new day(2, "Tue/Thu"),
-                          new day(3, "Mon-Thu"),
-                          new day(4, "Mon/Wed/Fri"),
-                          new day(5, "Mon-Fri")]);
+                        new day(1, "Mon/Wed"),
+                        new day(2, "Tue/Thu"),
+                        new day(3, "Mon-Thu"),
+                        new day(4, "Mon/Wed/Fri"),
+                        new day(5, "Mon-Fri")]);
+
+                viewModel.time = ko.observableArray([
+                        new time(1, "8am-9am"),
+                        new time(2, "8am-9:30am"),
+                        new time(3, "9am-10am"),
+                        new time(4,	"9am-10:30am"),
+                        new time(5, "10am-11am"), 
+                        new time(6, "10am-11:30am"), 
+                        new time(7,	 "11am-12pm"), 
+                        new time(8,	 "11am-12:30pm"), 
+                        new time(10, "1pm-2pm"), 
+                        new time(11, "1pm-2:30pm"),
+                        new time(12, "2pm-3pm"), 
+                        new time(13, "2pm-3:30pm"), 
+                        new time(14, "3pm-4pm"), 
+                        new time(15, "3pm-4:30pm"), 
+                        new time(16, "4pm-5pm"), 
+                        new time(17, "4pm-5:30pm"), 
+                        new time(18, "5pm-6:30pm"), 
+                        new time(20, "7pm-8pm"), 
+                        new time(21, "7pm-8:30pm"), 
+                        new time(22, "8pm-9pm"), 
+                        new time(23, "8pm-9:30pm")]);
+                viewModel.selectedTime = ko.observable(); 
                 viewModel.selectedDay = ko.observable(); 
                 ko.applyBindings(viewModel);
+
+                promise.done(function () {
+                    $('#createSchedule').click(function () {
+                        /*classHub.server.addSchedule(
+                                                      ko.utils.unwrapObservable(viewModel.selectedCourse.id),
+                                                      ko.utils.unwrapObservable(viewModel.dayTime.id), 
+                                                      ko.utils.unwrapObservable(viewModel*/
+                        var year = "2014";
+                        var quota = 5;
+                        var type = "LE";
+                        var quarter = "spring";
+                        var instructor_id = 1; 
+                        alert([ko.utils.unwrapObservable(viewModel.selectedCourse().id), ko.utils.unwrapObservable(viewModel.selectedDay().id),ko.utils.unwrapObservable(viewModel.selectedTime().id)]);
+                    });
+                });
             });
 
             //classHub.server.addCourse(ko.unwrapObservable(viewModel.title), ko.unwrap(viewModel.description));=
@@ -139,16 +189,8 @@
                 //classHub.server.addCourse(ko.utils.unwrapObservable(viewModel.title), ko.utils.unwrapObservable(viewModel.description));
             });
         });
-
-        promise.done(function () {
-            $('#createSchedule').click(function () {
-                /*classHub.server.addSchedule(
-                                              ko.utils.unwrapObservable(viewModel.selectedCourse.id),
-                                              ko.utils.unwrapObservable(viewModel.dayTime.id), 
-                                              ko.utils.unwrapObservable(viewModel*/
-
-            });
-        });
+       
+        
     });    
 
     

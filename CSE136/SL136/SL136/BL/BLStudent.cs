@@ -77,6 +77,11 @@ namespace BL
       return DALStudent.GetStudentList(ref errors);
     }
 
+    public static List<string> GetStudentSchedule(string student_id, ref List<string> errors)
+    {
+        return DALStudent.GetStudentSchedule(student_id, ref errors);
+    }
+
     public static int EnrollSchedule(string student_id, int schedule_id, ref List<string> errors)
     {
       if (student_id == null)

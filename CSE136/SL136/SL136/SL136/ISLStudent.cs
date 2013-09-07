@@ -34,5 +34,8 @@ namespace SL136
 
     [OperationContract]
     int DropEnrolledSchedule(string student_id, int schedule_id, ref List<string> errors);
+
+    [OperationContract]
+    List<string> GetStudentSchedule(string student_id, ref List<string> errors);
   }
 }

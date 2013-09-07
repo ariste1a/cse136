@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using web136.Models.Student;
+using System.Web.Script.Serialization;
 
 namespace web136.Controllers
 {
@@ -67,6 +68,15 @@ namespace web136.Controllers
         Console.Write(e.ToString());
         return View();
       }
+    }
+
+    // GET: /Student/GetStudentScheudle
+    public ActionResult GetStudentSchedule(string id)
+    {
+        List<string> schedule_ids = StudentClientService.GetStudentSchedule(id);
+        JavaScriptSerializer jsonSerialiser = new JavaScriptSerializer();
+        string ScheduleListJson = jsonSerialiser.Serialize(schedule_ids);
+        return Content(ScheduleListJson);
     }
 
     //

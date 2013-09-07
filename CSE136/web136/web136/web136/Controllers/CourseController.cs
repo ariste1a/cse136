@@ -31,26 +31,29 @@ namespace web136.Controllers
         CourseClientService.InsertCourse(p);
 
         return Content("great success!");
-    }*/ 
-
-    [HttpPost]
-    public ActionResult InsertCourse(FormCollection collection)
+    }*/  
+      /*
+    public ActionResult InsertCourse(string title, string description)
     {
-        try
-        {
-            PLCourse course = new PLCourse();            
-            //course.title = collection["title"];
-            //course.description = collection["LastName"];
-            course.title = "dummy";
-            course.description = "dummy2"; 
-            CourseClientService.InsertCourse(course);
-            return Content("stuff"); 
-        }
-        catch (Exception e)
-        {
-            Console.Write(e.ToString());
-            return View();
-        }
+        PLCourse course = new PLCourse();
+        course.title = title;
+        course.description = description;
+        //course.title = "dummy";
+        //course.description = "dummy2"; 
+        return Content(CourseClientService.InsertCourse(course));
+        //return Content(course.title + ' ' + course.description);
+    }*/ 
+          
+    public ActionResult InsertCourse(string title, string description)
+    {
+        PLCourse course = new PLCourse();
+        course.title = title;
+        course.description = description;
+        //course.title = "dummy";
+        //course.description = "dummy2"; 
+        return Content(CourseClientService.InsertCourse(course));
+        //return Content(course.title + ' ' + course.description);
     }
+       
   }
 }

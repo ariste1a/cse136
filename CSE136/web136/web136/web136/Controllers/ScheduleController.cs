@@ -116,7 +116,10 @@ namespace web136.Controllers
     }
       //need to be able to create + delete classes now
 
-
+    public ActionResult test(int id)
+    {
+        return Content(ScheduleClientService.test(id+100).ToString());
+    }
 
   }
 }

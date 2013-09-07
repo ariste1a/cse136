@@ -6,8 +6,12 @@
        padding-right:50px;
     }
 </style>
-<h2>Manage</h2>
-<table class="table table-striped">
+<h2>Manage Courses</h2>
+<div style="padding-bottom: 10px"><strong> A schedule is an instance of a class.</strong> 
+    <p>List of schedules for the year 2014</p>
+</div>
+
+<table class="table">    
     <tbody data-bind="foreach: schedule">
         <tr>
              <td data-bind="text: schedule_id"></td>
@@ -17,18 +21,57 @@
              <td data-bind="text: day"></td>
              <td data-bind="text: time"></td>
              <td><span data-bind="text: enrollment"></span>/<span data-bind="text : quota"></span></td>
+            <td> <a data-bind="click: showDiscussions"> View Discussions </a></td>
+            <td> <a> Remove</a></td>
+        </tr>
+        <tr data-bind="foreach : discussions ">
+             <td data-bind="text: schedule_id"></td>
+             <td data-bind="text: course_title"></td>
+             <td data-bind="text: course_description"></td>
+             <td data-bind="text: session"></td>
+             <td data-bind="text: day"></td>
+             <td data-bind="text: time"></td>
+             <td><span data-bind="text: enrollment"></span>/<span data-bind="    text: quota"></span></td>
         </tr>
     </tbody>
-</table>
-<form id="course"> 
-    <input placeholder="Title" type="text" id="title" name ="title"/>
-    <input placeholder="Description" type="text" id="desecription" name ="description" />
-    <button id="submitCourse"> Submit</button>
-</form>
 
+</table>
+    <!--
+        <input placeholder="Title" type="text" id="title" name ="title" data-bind="value: title"/>
+        <input placeholder="Description" type="text" id="description" name ="description" data-bind ="value: description"/>
+        <button id="submitCourse"> Submit</button>
+    -->     
+       <span style="vertical-align:top"><strong>CREATE A SCHEDULE</strong></span>
+        <div>
+            <select data-bind="options : courses, optionsText : 'title' , value : selectedCourse"></select>
+            <select data-bind="options : dayTime, optionsText: 'day', value: selectedDay"></select>
+            <div data-bind="visible: selectedCourse"> <!-- Appears when you select something -->
+            You have chosen course
+            <span style="font-weight: bold" data-bind="text: selectedCourse() ? selectedCourse().title : 'unknown'"> </span> 
+            <span style="font-weight: bold"  data-bind="text: selectedCourse() ? selectedCourse().description : 'unknown'"></span> 
+                on
+            <span style="font-weight: bold" data-bind="text: selectedDay() ? selectedDay().day : 'Day(s)'"></span>. 
+            </div>      
+        </div>
 <script>
-    console.log($.connection);
-    $(document).ready(function (){
+    //console.log($.connection);
+
+    $.connection.hub.start(function () {
+      //  console.log("Server has strarted");
+    });
+    var classHub = $.connection.classHub;    
+    classHub.client.getMessage = function(msg){ alert(msg);} 
+    //classHub.client.updateSchedule = 
+      //update the 
+    //console.log($.connection.classHub);
+    //console.log(ko); 
+    $(document).ready(function () {
+        
+        var Course = {
+            getCourses: function () {
+                return $.get('/Course/GetCourseList');
+            }
+        }
 
         var promise = new jQuery.Deferred();
         $.get('/Schedule/getScheduleList')
@@ -37,25 +80,76 @@
 
         promise.done(function (data) {
             var Schedule = function () {
+                for (i = 0; i < data.length; i++) {
+                    data[i].discussions = ko.observableArray();
+                    data[i].loaded = ko.observable(false);
+                }
                 this.schedule = data;
+                for (i = 0; i < this.schedule.length; i++) {
 
+                    this.schedule[i].showDiscussions = function () {
+                        var schedule = this;
+                        if (schedule.loaded == true)
+                            return;
+
+                        console.log(schedule);
+                        $.get('/Schedule/GetDiscussions/' + this.schedule_id).done(function (data) {
+                            data = JSON.parse(data);
+                            schedule.loaded = true;
+                            for (i = 0; i < data.length; i++) {
+                                schedule.discussions.push(data[i])
+                                schedule.enrollment = ko.observable(schedule.enrollment);
+                            }
+                        });
+                    }
                 }
-                var viewModel = new Schedule();
+            }
+
+            //create class for times            
+            var day = function (id, day) {
+                this.id = id;
+                this.day = day;
+            };
+            var viewModel = new Schedule();
+
+            viewModel.title = ko.observable("");
+            viewModel.description = ko.observable("");
+            Course.getCourses().done(function (data) {                
+                data = JSON.parse(data);
+                //console.log(data);
+                viewModel.courses = ko.observableArray(data);
+                console.log(ko.utils.unwrapObservable(viewModel.courses));               
+                viewModel.selectedCourse = ko.observable();                
+                viewModel.dayTime = ko.observableArray([
+                          new day(1, "Mon/Wed"),
+                          new day(2, "Tue/Thu"),
+                          new day(3, "Mon-Thu"),
+                          new day(4, "Mon/Wed/Fri"),
+                          new day(5, "Mon-Fri")]);
+                viewModel.selectedDay = ko.observable(); 
                 ko.applyBindings(viewModel);
-                console.log(Object.keys(data[0]));
             });
-    });
-    function showDiscussions() { };       
-    $('#submitCourse').click(function () {
-        var serialized = $("#course").serialize();
-        alert(serialized);
-            $.ajax({
-                type: "POST",
-                url: "/Course/InsertCourse/",
-                data: serialized,
-                success: function (msg) {
-                    alert("Form Submitted: " + msg);
-                }
+
+            //classHub.server.addCourse(ko.unwrapObservable(viewModel.title), ko.unwrap(viewModel.description));=
+        });
+
+        promise.done(function () {
+            $('#submitCourse').click(function () {
+                //console.log(ko.utils.unwrapObservable(viewModel.title));
+                //classHub.server.addCourse(ko.utils.unwrapObservable(viewModel.title), ko.utils.unwrapObservable(viewModel.description));
             });
-        });    
+        });
+
+        promise.done(function () {
+            $('#createSchedule').click(function () {
+                /*classHub.server.addSchedule(
+                                              ko.utils.unwrapObservable(viewModel.selectedCourse.id),
+                                              ko.utils.unwrapObservable(viewModel.dayTime.id), 
+                                              ko.utils.unwrapObservable(viewModel*/
+
+            });
+        });
+    });    
+
+    
 </script>

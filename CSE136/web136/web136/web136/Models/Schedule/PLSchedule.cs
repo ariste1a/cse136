@@ -30,6 +30,10 @@ namespace web136.Models.Schedule
     public string course_title { get; set; }
 
     [Required]
+    [DisplayName("Course ID")]
+    public int course_id { get; set; }
+
+    [Required]
     [DisplayName("Description")]
     public string course_description { get; set; }
 
@@ -52,5 +56,9 @@ namespace web136.Models.Schedule
     [Required]
     [DisplayName("Type")]
     public string type { get; set; }
+
+    [Required]
+    [DisplayName("Instructor")]
+    public int instructor_id { get; set; }
   }
 }

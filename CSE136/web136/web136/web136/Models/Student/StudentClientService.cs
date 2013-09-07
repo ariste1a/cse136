@@ -95,24 +95,25 @@ namespace web136.Models.Student
     /// </summary>
     /// <param name="id"></param>
 
-    public static void Enroll(string student_id, int schedule_id)
+    public static int Enroll(string student_id, int schedule_id)
     {
       SLStudent.ISLStudent SLStudent = new SLStudent.SLStudentClient();
       string[] errors = new string[0];
       SLStudent.EnrollScheduleRequest request = new SLStudent.EnrollScheduleRequest(student_id, schedule_id, errors);
-      SLStudent.EnrollSchedule(request);
+      return Convert.ToInt32(SLStudent.EnrollSchedule(request));
+              
     }
 
     /// <summary>
     /// call service layer's drop student method
     /// </summary>
     /// <param name="id"></param>
-    public static void Drop(string student_id, int schedule_id)
+    public static int Drop(string student_id, int schedule_id)
     {
       SLStudent.ISLStudent SLStudent = new SLStudent.SLStudentClient();
       string[] errors = new string[0];
       SLStudent.DropEnrolledScheduleRequest request = new SLStudent.DropEnrolledScheduleRequest(student_id, schedule_id, errors);
-      SLStudent.DropEnrolledSchedule(request);
+      return Convert.ToInt32(SLStudent.DropEnrolledSchedule(request));
     }
 
     /// <summary>

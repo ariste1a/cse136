@@ -43,22 +43,24 @@ namespace web136.Models.Course
         c.title = p.title;
 
         return c; 
-    } 
-
-
-    public static void InsertCourse(PLCourse p)
+    }
+ 
+    public static string InsertCourse(PLCourse p)
     {
         //SLCourse.SLCourseClient client = new SLCourse.SLCourseClient();
         String[] errors = new string[0];
       
         SLCourse.Course course = PL_to_DTO(p);
-        course.title = "asdf";
-        course.description = "asdf";
+        course.title = p.title;
+        course.description = p.description;
         course.level = SLCourse.CourseLevel.lower;        
 
         SLCourse.ISLCourse client = new SLCourse.SLCourseClient();        
         SLCourse.InsertCourseRequest request = new SLCourse.InsertCourseRequest(course, errors);
-        client.InsertCourse(request);
+        SLCourse.InsertCourseResponse response = client.InsertCourse(request);
+        string id = response.InsertCourseResult;
+        return id; 
+        //return client.InsertCourse(request); 
     }  
   }
 }

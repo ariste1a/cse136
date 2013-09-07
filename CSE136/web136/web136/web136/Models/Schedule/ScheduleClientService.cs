@@ -131,12 +131,6 @@ namespace web136.Models.Schedule
         }
         return scheduleList;
     }
-
-    public static int test(int i)
-    {
-        return i+100;
-    } 
-   
-
+  
   }
 }

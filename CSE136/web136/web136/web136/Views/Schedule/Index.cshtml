@@ -62,7 +62,7 @@
             }
         }
 
-        var student_id = @Session["id"]; 
+        var student_id = "@Session["id"]"; 
 
         var promise = new jQuery.Deferred();
         $.get('/Schedule/getScheduleList')
@@ -93,7 +93,7 @@
                         });
                     }
                     this.schedule[i].enroll = function () {                        
-                        classHub.server.Enroll(student_id, this.schedule_id);
+                        classHub.server.enroll(student_id, this.schedule_id);
                     }
                 }
             }

@@ -113,13 +113,7 @@ namespace web136.Controllers
         JavaScriptSerializer jsonSerialiser = new JavaScriptSerializer();
         string discussionListJson = jsonSerialiser.Serialize(quota);
         return Content(discussionListJson);
-    }
-      //need to be able to create + delete classes now
-
-    public ActionResult test(int id)
-    {
-        return Content(ScheduleClientService.test(id+100).ToString());
-    }
+    }       
 
   }
 }

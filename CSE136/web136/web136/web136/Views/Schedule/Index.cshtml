@@ -1,68 +1,183 @@
-﻿<!DOCTYPE html>
-<script src="~/Scripts/136Libraries/ViewModels/scheduleViewModel.js"></script>
-@Scripts.Render("~/bundles/calendar")
-@Styles.Render("~/bundles/calendarstyle")
-@Styles.Render("~/Content/css")
-<link rel="stylesheet" href="~/Content/bootstrap-responsive.min.css"/>
-<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-<script src="~/Scripts/Services/courseList.js" type="text/javascript"></script>
-<html ng-app="schedule">
+﻿@{
+    ViewBag.Title = "Enrollment";
+}
 
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-</head>
+<style>
+    td {
+       padding-right:50px;
+    }
+</style>
+<h2>Enroll in a Course!</h2>
+<div style="padding-bottom: 10px"><strong> A schedule is an instance of a class.</strong> 
+    <p>List of schedules for the year 2014</p>
+</div>
 
-<body ng-cloak ng-controller="scheduleCTRL" ng-init="user='@Session["id"]'">
+<table class="table">    
+    <tbody data-bind="foreach: schedule">
+        <tr>
+             <td data-bind="text: schedule_id"></td>
+             <td data-bind="text : course_title"></td>
+             <td data-bind="text: course_description"></td>
+             <td data-bind="text: session"></td>
+             <td data-bind="text: day"></td>
+             <td data-bind="text: time"></td>
+             <td><span data-bind="text: enrollment"></span>/<span data-bind="text : quota"></span></td>
+             <td> <a data-bind="click: showDiscussions"> View Discussions </a></td>
+             <td> <a data-bind="click: enroll"> Enroll </a></td>
+        </tr>
+        <tr data-bind="foreach : discussions ">
+             <td data-bind="text: schedule_id"></td>
+             <td data-bind="text: course_title"></td>
+             <td data-bind="text: course_description"></td>
+             <td data-bind="text: session"></td>
+             <td data-bind="text: day"></td>
+             <td data-bind="text: time"></td>
+             <td><span data-bind="text: enrollment"></span>/<span data-bind="text: quota"></span></td>
+        </tr>
+    </tbody>
 
-    <div class="row">
-        <div class="span3">            
-            <fieldset>
-                <legend> Student Chat </legend>
-                <label for="txtInput">Chat Message</label>
-                <input id="txtInput" type="text" />
-                <button id="buttonSubmit"> Submit</button>
-                <fieldset>
-                    <legend>Messages</legend>
-                    <ul id="messages">
-                        <li ng-repeat="message in chatMessages">
-                            {{message}}
-                        </li>
-                    </ul>
-                </fieldset>
-            </fieldset>
-            </div>
+</table>
+    <!--
+        <input placeholder="Title" type="text" id="title" name ="title" data-bind="value: title"/>
+        <input placeholder="Description" type="text" id="description" name ="description" data-bind ="value: description"/>
+        <button id="submitCourse"> Submit</button>
+    -->     
+<script>
+    //console.log($.connection);
 
-        <div class="span4">
-            <button ng-click="addJobs = !addJobs" class="btn"> 
-            <span ng-show="addJobs"> Add</span> <span ng-show="!addJobs">Remove</span> Classes 
-            </button>
-            <div ng-hide="!addJobs">
-                <div class="displayGrid">
-                    <div ng-repeat="item in selectedOptions">                        
-                        <div ng-click="removeStudentClass(item)" tooltip="{{item.tooltip}}" dragtool="true"
-                              class="row list " style="border-style:solid; border-width:1px; cursor:pointer;">
-                            <div class="span1">{{item.title}}</div>
-                            <div class="span3"> {{item.description}}</div>
-                        </div>
-                   </div>
-                </div> 
-            </div>
-            <div ng-hide="addJobs" class="displayGrid">
-                <div btf-dragon="item in list">
-                    <div tooltip="{{item.tooltip}}" dragtool="true" class="row list " style="border-style:solid; border-width:1px;">
-                        <div class="span1">{{item.title}}</div>
-                        <div class="span3"> {{item.description}}</div>
-                    </div>
-                 </div>
-                </div>
-            </div>
+    $.connection.hub.start(function () {
+      //  console.log("Server has strarted");
+    });
+    var classHub = $.connection.classHub;    
+    classHub.client.getMessage = function(msg){ alert(msg);} 
+    //classHub.client.updateSchedule = 
+      //update the 
+    //console.log($.connection.classHub);
+    //console.log(ko); 
+    $(document).ready(function () {
+        
+        var Course = {
+            getCourses: function () {
+                return $.get('/Course/GetCourseList');
+            }
+        }
 
-        <div noshow="true" btf-dragon="item in selectedOptions">
-            <div class="span10" ui-calendar="calendarOptions" ng-model="eventSources" calendar="myCalendar">
-            </div>
-        </div>
-    </div>
-    </div>
-</body>
-</html>
+        var student_id = @Session["id"]; 
+
+        var promise = new jQuery.Deferred();
+        $.get('/Schedule/getScheduleList')
+            .done(function (data) { promise.resolve(JSON.parse(data)) })
+            .fail(function (data) { promise.reject(data); });
+
+        promise.done(function (data) {
+            var Schedule = function () {
+                for (i = 0; i < data.length; i++) {
+                    data[i].discussions = ko.observableArray();
+                    data[i].loaded = ko.observable(false);
+                }
+                this.schedule = data;
+                for (i = 0; i < this.schedule.length; i++) {
+
+                    this.schedule[i].showDiscussions = function () {
+                        var schedule = this;
+                        if (schedule.loaded == true)
+                            return;                     
+                        console.log(schedule);
+                        $.get('/Schedule/GetDiscussions/' + this.schedule_id).done(function (data) {
+                            data = JSON.parse(data);
+                            schedule.loaded = true;
+                            for (i = 0; i < data.length; i++) {
+                                schedule.discussions.push(data[i])
+                                schedule.enrollment = ko.observable(schedule.enrollment);
+                            }
+                        });
+                    }
+                    this.schedule[i].enroll = function () {                        
+                        classHub.server.Enroll(student_id, this.schedule_id);
+                    }
+                }
+            }
+
+            //create class for times            
+            var day = function (id, day) {
+                this.id = id;
+                this.day = day;
+            };
+            var time = function(id, time){
+                this.id = id; 
+                this.time = time; 
+            }; 
+            var viewModel = new Schedule();
+
+            viewModel.title = ko.observable("");
+            viewModel.description = ko.observable("");
+            Course.getCourses().done(function (data) {                
+                data = JSON.parse(data);
+                //console.log(data);
+                viewModel.courses = ko.observableArray(data);
+                console.log(ko.utils.unwrapObservable(viewModel.courses));               
+                viewModel.selectedCourse = ko.observable();                
+                viewModel.dayTime = ko.observableArray([
+                        new day(1, "Mon/Wed"),
+                        new day(2, "Tue/Thu"),
+                        new day(3, "Mon-Thu"),
+                        new day(4, "Mon/Wed/Fri"),
+                        new day(5, "Mon-Fri")]);
+
+                viewModel.time = ko.observableArray([
+                        new time(1, "8am-9am"),
+                        new time(2, "8am-9:30am"),
+                        new time(3, "9am-10am"),
+                        new time(4,	"9am-10:30am"),
+                        new time(5, "10am-11am"), 
+                        new time(6, "10am-11:30am"), 
+                        new time(7,	 "11am-12pm"), 
+                        new time(8,	 "11am-12:30pm"), 
+                        new time(10, "1pm-2pm"), 
+                        new time(11, "1pm-2:30pm"),
+                        new time(12, "2pm-3pm"), 
+                        new time(13, "2pm-3:30pm"), 
+                        new time(14, "3pm-4pm"), 
+                        new time(15, "3pm-4:30pm"), 
+                        new time(16, "4pm-5pm"), 
+                        new time(17, "4pm-5:30pm"), 
+                        new time(18, "5pm-6:30pm"), 
+                        new time(20, "7pm-8pm"), 
+                        new time(21, "7pm-8:30pm"), 
+                        new time(22, "8pm-9pm"), 
+                        new time(23, "8pm-9:30pm")]);
+                viewModel.selectedTime = ko.observable(); 
+                viewModel.selectedDay = ko.observable(); 
+                ko.applyBindings(viewModel);
+
+                promise.done(function () {
+                    $('#createSchedule').click(function () {
+                        /*classHub.server.addSchedule(
+                                                      ko.utils.unwrapObservable(viewModel.selectedCourse.id),
+                                                      ko.utils.unwrapObservable(viewModel.dayTime.id), 
+                                                      ko.utils.unwrapObservable(viewModel*/
+                        var year = "2014";
+                        var quota = 5;
+                        var type = "LE";
+                        var quarter = "spring";
+                        var instructor_id = 1; 
+                        alert([ko.utils.unwrapObservable(viewModel.selectedCourse().id), ko.utils.unwrapObservable(viewModel.selectedDay().id),ko.utils.unwrapObservable(viewModel.selectedTime().id)]);
+                    });
+                });
+            });
+
+            //classHub.server.addCourse(ko.unwrapObservable(viewModel.title), ko.unwrap(viewModel.description));=
+        });
+
+        promise.done(function () {
+            $('#submitCourse').click(function () {
+                //console.log(ko.utils.unwrapObservable(viewModel.title));
+                //classHub.server.addCourse(ko.utils.unwrapObservable(viewModel.title), ko.utils.unwrapObservable(viewModel.description));
+            });
+        });
+       
+        
+    });    
+
+    
+</script>

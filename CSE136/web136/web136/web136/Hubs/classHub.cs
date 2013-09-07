@@ -58,5 +58,10 @@ namespace web136.Hubs
             Clients.All.addSchedule(schedule);
         }
 
+        public void Enroll(string student_id, int schedule_id)
+        {
+            StudentClientService.Enroll(student_id, schedule_id);
+        }
+
     }
 }

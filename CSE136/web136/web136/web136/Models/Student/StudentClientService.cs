@@ -100,8 +100,7 @@ namespace web136.Models.Student
       SLStudent.ISLStudent SLStudent = new SLStudent.SLStudentClient();
       string[] errors = new string[0];
       SLStudent.EnrollScheduleRequest request = new SLStudent.EnrollScheduleRequest(student_id, schedule_id, errors);
-      return Convert.ToInt32(SLStudent.EnrollSchedule(request));
-              
+      return Convert.ToInt32(SLStudent.EnrollSchedule(request));          
     }
 
     /// <summary>

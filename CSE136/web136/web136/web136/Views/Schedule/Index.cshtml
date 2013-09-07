@@ -10,9 +10,7 @@
 
 <h2>Your current Courses</h2>
 
-<table class="table"> 
-
-</table>
+<table class="table" id ="scheduleTable"> </table>
 
 
 
@@ -65,6 +63,42 @@
     //console.log($.connection.classHub);
     //console.log(ko); 
     $(document).ready(function () {
+        
+
+        function buildHtmlTable() {
+            var columns = addAllColumnHeaders(myList);
+
+            for (var i = 0 ; i < myList.length ; i++) {
+                var row$ = $('<tr/>');
+                for (var colIndex = 0 ; colIndex < columns.length ; colIndex++) {
+                    var cellValue = myList[i][columns[colIndex]];
+
+                    if (cellValue == null) { cellValue = ""; }
+
+                    row$.append($('<td/>').html(cellValue));
+                }
+                $("#excelDataTable").append(row$);
+            }
+        }
+
+        function addAllColumnHeaders(myList)
+        {
+            var columnSet = [];
+            var headerTr$ = $('<tr/>');
+
+            for (var i = 0 ; i < myList.length ; i++) {
+                var rowHash = myList[i];
+                for (var key in rowHash) {
+                    if ($.inArray(key, columnSet) == -1){
+                        columnSet.push(key);
+                        headerTr$.append($('<th/>').html(key));
+                    }
+                }
+            }
+            $("#excelDataTable").append(headerTr$);
+
+            return columnSet;
+        }​
         
         var Course = {
             getCourses: function () {
@@ -193,13 +227,50 @@
                     alert([ko.utils.unwrapObservable(viewModel.selectedCourse().id), ko.utils.unwrapObservable(viewModel.selectedDay().id), ko.utils.unwrapObservable(viewModel.selectedTime().id)]);
                 });
             });
-
-            //get the schedules of this current student and bind them 
+ 
             studentSchedule.getStudentSchedules().done(function (data)
             {
                 console.log(data);
                 studentScheduleIds = JSON.parse(data);
+                viewModel.studentScheduleIds = ko.observableArray(studentScheduleIds);
+
+                ko.applyBindings(viewModel); 
                 //viewModel.courses = ko.observableArray(studentScheduleIds);
+
+                function buildHtmlTable() {
+                    var columns = addAllColumnHeaders(studentScheduleIds);
+
+                    for (var i = 0 ; i < studentScheduleIds.length ; i++) {
+                        var row$ = $('<tr/>');
+                        for (var colIndex = 0 ; colIndex < columns.length ; colIndex++) {
+                            var cellValue = studentScheduleIds[i][columns[colIndex]];
+
+                            if (cellValue == null) { cellValue = ""; }
+
+                            row$.append($('<td/>').html(cellValue));
+                        }
+                        $("#scheduleTable").append(row$);
+                    }
+                }
+
+                function addAllColumnHeaders(studentScheduleIds)
+                {
+                    var columnSet = [];
+                    var headerTr$ = $('<tr/>');
+
+                    for (var i = 0 ; i < studentScheduleIds.length ; i++) {
+                        var rowHash = myList[i];
+                        for (var key in rowHash) {
+                            if ($.inArray(key, columnSet) == -1){
+                                columnSet.push(key);
+                                headerTr$.append($('<th/>').html(key));
+                            }
+                        }
+                    }
+                    $("#scheduleTable").append(headerTr$);
+
+                    return columnSet;
+                }​
 
             });
 
